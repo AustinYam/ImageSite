@@ -29,13 +29,18 @@ _END;
 	<html>
 	<head>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
+		<style type="text/css">
+
+		</style>
 	</head>
 		<body>
-			<div class="container">
-				<h3>Sign Up</h3>
+			<div class="container ml-5">
+				<h1>Sign Up</h1>
+				<br>
 				<form action="signupPage.php" method="post">
 					<row>
-						<p>Username</p> <input class="valid" type="text" name="userName">
+						<p>Username</p> <input class="" type="text" name="userName">
 					</row>
 					<row>
 						<p>Password</p> <input type="password" name="password">
@@ -53,4 +58,7 @@ _END;
 				</form>
 			</div>
 		</body>
+	<footer>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	</footer>
 </html>

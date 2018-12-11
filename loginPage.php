@@ -3,9 +3,6 @@ session_start();
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 
-echo <<<_END
-<h1>Welcome to our fockin images website</h1>
-_END;
 
 $_SESSION["user"]="";
 $_SESSION["pass"]="";
@@ -18,12 +15,12 @@ if (isset($_POST['username']) && isset($_POST['password']))
 	$username = mysqli_real_escape_string($conn, $_POST['username']);
 	$password = mysqli_real_escape_string($conn, $_POST['password']);
 	 $passwordunhash=SHA1($password);
-	 echo $passwordunhash."</br>";
+	// echo $passwordunhash."</br>";
 	
 	$query = "SELECT userName from customer where userName='$username'";
 		$result1 = $conn->query($query);
 		while ($row = $result1->fetch_assoc()) {
-			echo $row['userName']."<br>";
+		//	echo $row['userName']."<br>";
 			$_SESSION["user"]=$row['userName'];
 			}
 			
@@ -31,7 +28,7 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			$query = "SELECT password from customer where password='$passwordunhash'";
 		$result2 = $conn->query($query);
 		while ($row = $result2->fetch_assoc()) {
-			echo $row['password']."<br>";
+			//echo $row['password']."<br>";
 			$_SESSION["pass"]=$row['password'];
 			}
 			
@@ -43,17 +40,36 @@ if (isset($_POST['username']) && isset($_POST['password']))
 	}
 	else
 	{
-		echo "nah bruh"."</br>";
+		$message = "Incorrect Username or Password";
+		echo "<script type='text/javascript'>alert('$message');</script>";
 	}
 }
 
-echo <<<_END
-<form action="loginPage.php" method="post">
-<pre>
-username <input type="text" name="username">
-password <input type="text" name="password">
-<input type="submit" value="LOGIN">
-</pre>
-</form>
-_END;
 ?>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Login</h1>
+			<br>
+			<form action="loginPage.php" method="post">
+				<row>
+					<p>Username</p> <input class="validate" type="text" name="username">
+				</row>
+				</row>
+					<p>Password</p> <input class="validate" type="password" name="password">
+				</row>
+				<button class="btn waves-effect waves-light" type="submit" value="">Login</button>
+			</form>
+		</div>
+	</body>
+	<footer>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	</footer>
+</html>

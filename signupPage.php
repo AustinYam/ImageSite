@@ -35,7 +35,7 @@ _END;
 				<h3>Sign Up</h3>
 				<form action="signupPage.php" method="post">
 					<row>
-						<p>Username</p> <input type="text" name="userName">
+						<p>Username</p> <input class="valid" type="text" name="userName">
 					</row>
 					<row>
 						<p>Password</p> <input type="password" name="password">
@@ -49,7 +49,7 @@ _END;
 					<row>
 						<p>User Type</p> <input type="Text" name="userType">
 					</row>
-				<input type="submit" value="ADD RECORD">
+				<button class="btn waves-effect waves-light" type="submit" value="ADD RECORD">Register</button>
 				</form>
 			</div>
 		</body>

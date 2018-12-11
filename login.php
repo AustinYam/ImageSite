@@ -1,6 +1,6 @@
-<?php 
-	$hn = 'localhost';
-	$un = 'iamtheyam';
-	$pw = '933923Ta';
-	$db = 'image';
+<?php
+$hn = 'localhost';
+$un = 'Arselan';
+$pw = 'Missionsjsu95';
+$db = 'image';
 ?>

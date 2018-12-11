@@ -50,6 +50,16 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 	}
 		if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 		
+		$query = "SELECT * from cart";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			$ts=$row['source'];
+			$newts=substr_replace($ts, '.jpg',-7);
+			echo $newts;
+			}
+			if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+		
 	$query = "SELECT id from customer where id='$buyid'";
 	$result = $conn->query($query);
 	while ($row = $result->fetch_assoc()) {
@@ -57,8 +67,10 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 			$ti=$row['id'];
 			}
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+	
+	
 		foreach ($s as $k => $v) {
-    $query ="INSERT INTO transaction VALUES(NULL,'$ti','$v',CURDATE())";
+    $query ="INSERT INTO transaction VALUES(NULL,'$ti','$v','$newts',CURDATE())";
 	$result = $conn->query($query);
 	if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 }

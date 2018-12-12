@@ -30,7 +30,7 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 	$cat = get_post($conn, 'category');
 	$cre = get_post($conn, 'credits');
 	
-	$query = "INSERT INTO music VALUES('$id','$res','$size','$name','$cat', '$cre')";
+	$query = "INSERT INTO music VALUES('$id','$res','$size','$name','$cat', '$cre',CURDATE())";
 	$result = $conn->query($query);
 	if (!$result) die("Database access failed: ". $conn->error);
 	

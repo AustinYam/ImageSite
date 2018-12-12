@@ -129,14 +129,16 @@ echo <<<_END
 	    <p class="card-text">Order Number: $row[0]</p>
 	    <p class="card-text">Customer ID: $row[1]</p>
 	    <p class="card-text">Image ID: $row[2]</p>
-	    <p class="card-text">Transaction Date: $row[4]</p>
+		<p class="card-text">Category: $row[4]</p>
+	    <p class="card-text">Transaction Date: $row[5]</p>
 	    <form action="itemsBought.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="orderNumber" value="$row[0]">
 			<input type="hidden" name="customerID" value="$row[1]">
 			<input type="hidden" name="imageID" value="$row[2]">
 			<input type="hidden" name="source" value="$row[3]">
-			<input type="hidden" name="transactionDate" value="$row[4]">
+			<input type="hidden" name="category" value="$row[4]">
+			<input type="hidden" name="transactionDate" value="$row[5]">
 			<button class="btn btn-outline-success" type="submit">Return</button>
 		</form>
 	  </div>

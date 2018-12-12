@@ -11,13 +11,6 @@ $p= $_SESSION["pass"];
 
 //search
 echo <<<_END
-<form action="" method="post">
-
-<input type="text" name="enter">
-Enter name or category of any image <type="label" name="searchby">
-<input type="submit" name="search" value="SEARCH">
-
-</form>
 _END;
 
 if (isset($_POST['search']) && isset($_POST['enter']))
@@ -222,5 +215,12 @@ $query = "SELECT * FROM music";
 		    </ul>
 		  </div>
 	</nav>
+	<div class="container-fluid">
+		<form action="" method="post">
+			<input class="mt-2" type="search" name="enter">
+			<type="label" name="searchby">
+			<button class="btn btn-outline-success" type="submit" name="search">Search</button>
+		</form>
+	</div>
 </body>
 </html>

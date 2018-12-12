@@ -20,16 +20,17 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 	*/
 
 //delete from cart
-if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && isset($_POST['size']) && isset($_POST['source']) && isset($_POST['category']))
+if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && isset($_POST['size']) && isset($_POST['source']) && isset($_POST['category']) && isset($_POST['credits']))
 {
 	echo "hi";
 	$id = get_post($conn, 'id');
 	$res = get_post($conn, 'res');
 	$size = get_post($conn, 'size');
 	$name = get_post($conn, 'source');
-		$cat = get_post($conn, 'category');
+	$cat = get_post($conn, 'category');
+	$cre = get_post($conn, 'credits');
 	
-	$query = "INSERT INTO music VALUES('$id','$res','$size','$name','$cat')";
+	$query = "INSERT INTO music VALUES('$id','$res','$size','$name','$cat', '$cre')";
 	$result = $conn->query($query);
 	if (!$result) die("Database access failed: ". $conn->error);
 	
@@ -45,29 +46,36 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 	
 	$query ="SELECT * FROM cart";
 		$result = $conn->query($query);
+		$tcred= array();
 		
 		while ($row = $result->fetch_assoc()) {
 		$s[]=$row['id'];
 		print_r ($s);
 		$ts=$row['source'];
 			$newts[]=substr_replace($ts, '.jpg',-7);
-					
-		
-		
+		$tc[] = $row['category'];
+		$tcred[]=$row['credits'];
 	}
+	$sum = array_sum($tcred);
 		if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-	$query = "SELECT id from customer where id='$buyid'";
+	$query = "SELECT * from customer where id='$buyid'";
 	$result = $conn->query($query);
 	while ($row = $result->fetch_assoc()) {
 			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
 			$ti=$row['id'];
+			$tcustcre=$row['credits'];
 			}
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-	
+	if($tcustcre > $sum){
+		$upcustcre=$tcustcre-$sum;
+		$query = "update customer set credits=$upcustcre where id='$buyid'";
+		$result=$conn->query($query);
+		if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+	}
 	
 		foreach ($s as $k => $v) {
 			//foreach($newts as $b => $bit){
-    $query ="INSERT INTO transaction VALUES(NULL,'$ti','$s[$k]','$newts[$k]',CURDATE())";
+    $query ="INSERT INTO transaction VALUES(NULL,'$ti','$s[$k]','$newts[$k]', '$tc[$k]',CURDATE())";
 	$result = $conn->query($query);
 	if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 			//}
@@ -177,14 +185,16 @@ echo <<<_END
 	    <p class="card-text">resolution: $row[1]</p>
 	    <p class="card-text">size: $row[2]</p>
 	    <p class="card-text">category: $row[4]</p>
+	    <p class="card-text">credits: $row[5]</p>
 	  
-		<form class = "mt-2" action="ImageTest.php" method="post">
+		<form class = "mt-2" action="cart.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
 			<input type="hidden" name="res" value="$row[1]">
 			<input type="hidden" name="size" value="$row[2]">
 			<input type="hidden" name="source" value="$row[3]">
 			<input type="hidden" name="category" value="$row[4]">
+			<input type="hidden" name="credits" value="$row[5]">
 			<button class = "btn btn-outline-success" type="submit">Remove</button>
 		</form>
 	  </div>

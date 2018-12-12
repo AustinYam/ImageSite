@@ -115,21 +115,6 @@ _END;
 	}
 	
 	
-
-echo <<<_END
-<form action="" method="post">
-<input type="submit" name="trending" value="TRENDING">
-
-</form>
-_END;
-
-//log out
-echo <<<_END
-<form action="loginPage.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="LOG OUT">
-</form>
-_END;
 ?>
 
 <!DOCTYPE html>
@@ -141,7 +126,7 @@ _END;
 <body>
 	<!--NAVBAR-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="#">Giggity</a>
+  		<a class="navbar-brand" href="startScreen">Giggity</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -156,11 +141,13 @@ _END;
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
-		      </li>
-		      <form class="form-inline my-2 my-lg-0 ml-5" method="post">
-			      <input class="form-control mr-sm-2" type="search" name="enter" placeholder="Search" aria-label="Search">
-			      <button class="btn btn-outline-success my-2 my-sm-0" name="search" type="submit">Search</button>
-		      </form>
+		      </li>   
+		      <li class="nav-item"> 
+			      <a class="nav-link" href="search.php">Search</a>
+			  </li>
+		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
+					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
+			  </form>
 		       <li class="nav-item mr-5" style="position: absolute; right: 0">
 		      	<div class="dropdown">
 		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>

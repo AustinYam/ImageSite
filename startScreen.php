@@ -105,9 +105,9 @@ _END;
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>
-		      <form class="form-inline my-2 my-lg-0 ml-5">
-			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		      <form class="form-inline my-2 my-lg-0 ml-5" method="post">
+			      <input class="form-control mr-sm-2" type="search" name="enter" placeholder="Search" aria-label="Search">
+			      <button class="btn btn-outline-success my-2 my-sm-0" name="search" type="submit">Search</button>
 		      </form>
 		       <li class="nav-item mr-5" style="position: absolute; right: 0">
 		      	<div class="dropdown">

@@ -44,22 +44,15 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 		$result = $conn->query($query);
 		
 		while ($row = $result->fetch_assoc()) {
-		$s[]=$row['id'];	
+		$s[]=$row['id'];
 		print_r ($s);
+		$ts=$row['source'];
+			$newts[]=substr_replace($ts, '.jpg',-7);
+					
+		
 		
 	}
 		if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-		
-		$query = "SELECT * from cart";
-	$result = $conn->query($query);
-	while ($row = $result->fetch_assoc()) {
-			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
-			$ts=$row['source'];
-			$newts=substr_replace($ts, '.jpg',-7);
-			echo $newts;
-			}
-			if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-		
 	$query = "SELECT id from customer where id='$buyid'";
 	$result = $conn->query($query);
 	while ($row = $result->fetch_assoc()) {
@@ -70,9 +63,11 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 	
 	
 		foreach ($s as $k => $v) {
-    $query ="INSERT INTO transaction VALUES(NULL,'$ti','$v','$newts',CURDATE())";
+			//foreach($newts as $b => $bit){
+    $query ="INSERT INTO transaction VALUES(NULL,'$ti','$s[$k]','$newts[$k]',CURDATE())";
 	$result = $conn->query($query);
 	if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
+			//}
 }
 
 	

@@ -96,16 +96,18 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 	
 	$query = "SELECT * from music where source='$source'";
 	$result = $conn->query($query);
+	$sou=array();
+	$value=array();
 	while ($row = $result->fetch_assoc()) {
 			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
 			//$_SESSION["tmpid"]=$row['id'];
-			$sou=$row['source'];
+			$sou[]=$row['source'];
 			}
 			//echo $sou;
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	
-	/*
-	if($source==$sou)
+	
+	if(in_array($source, $sou)!==false)
 	{
 	$query = "SELECT * from music where source='$source'";
 	$result = $conn->query($query);
@@ -119,11 +121,22 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 		$w=$row['category'];
 		$x=$row['credits'];
 			}
-			
 			//echo $sou;
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
+	$query ="INSERT INTO cart VALUES('$iid','$t','$u','$sou','$w','$x')";
+		$result = $conn->query($query);
+		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
+		
+		$query = "DELETE FROM music WHERE id='$iid'";
+	$result = $conn->query($query);
+	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
+
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	}
-	*/
+	else{
+		echo "its not available";
+	}
+	
 	
 
 }

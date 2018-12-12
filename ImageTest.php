@@ -197,20 +197,16 @@ if (!$result) die("Database access failed: ". $conn->error);
 		<div class="row">
 			<form action="search.php" method="post">
 				<input type="hidden" name="choose" value="yes">
-				<input type="submit" value="search images">
-			</form>
-		</div>
-		<div class="row">
-			<form action="cart.php" method="post">
-				<input type="hidden" name="choose" value="yes">
-				<input type="submit" value="CART">
+				<button class="btn btn-outline-success mt-2" type="submit">Browse Images</button>
 			</form>
 		</div>
 		<div class="row">
 			<form method="post" action="" enctype='multipart/form-data'>
-				<input type='file' name='file' /></br>
-				category<input type="text" name="category">
-				<input type='submit' value='Save' name='image_upload'>
+				<label class="btn btn-outline-success btn-file mt-2">
+				    Select Image<input type="file" style="display: none;">
+				</label><br>
+				Category<input class="ml-2" type="text" name="category">
+				<button class="btn btn-outline-success" type='submit' name='image_upload'>Upload</button>
 			</form>
 		</div>
 		<div class="row">
@@ -229,27 +225,29 @@ if (!$result) die("Database access failed: ". $conn->error);
 			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
 echo <<<_END
 
-<div class=column style=float:left;padding:10 10 10 10>
-<pre>
-id: $row[0]
-resolution: $row[1]
-size: $row[2]
-source: $row[3]
-category: $row[4]
-<img src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
+<div class="column ml-2 mb-5" style=float:left;padding:10 10 10 10>
+	<div class="card" style="width: 15rem;">
+	  <img class="card-img-top" src= $row[3] alt="HTML5 Icon">
+	  <div class="card-body">
+	    <h5 class="card-title">$row[3]</h5>
+	    <p class="card-text">id: $row[0]</p>
+	    <p class="card-text">resolution: $row[1]</p>
+	    <p class="card-text">size: $row[2]</p>
+	    <p class="card-text">category: $row[4]</p>
+	    <form class = "" action="ImageTest.php" method="post">
+			<input type="hidden" name="delete" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-success" type="submit">Delete</button>
+		</form>
+		<form class = "mt-2" action="ImageTest.php" method="post">
+			<input type="hidden" name="choose" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+		</form>
+	  </div>
+	</div>
 
-</pre>
 
-<form action="ImageTest.php" method="post">
-<input type="hidden" name="delete" value="yes">
-<input type="hidden" name="id" value="$row[0]">
-<input type="submit" value="DELETE RECORD">
-</form>
-<form action="ImageTest.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="hidden" name="id" value="$row[0]">
-<input type="submit" value="CHOOSE RECORD">
-</form>
 </div>
 
 _END;

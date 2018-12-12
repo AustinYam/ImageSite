@@ -280,7 +280,7 @@ echo <<<_END
 
 <div class="column ml-2 mb-5 mt-2" style=float:left;padding:10 10 10 10>
 	<div class="card" style="width: 10rem;">
-	  <img class="card-img-top" src= $row[1] alt="HTML5 Icon">
+	  <img class="card-img-top" height = "150" width = "42" src= $row[1] alt="HTML5 Icon">
 	  <div class="card-body">
 	    <form action="startScreen.php" method="post">
 			<input type="hidden" name="choose" value="yes">

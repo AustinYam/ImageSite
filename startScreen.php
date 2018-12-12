@@ -1,12 +1,66 @@
 <?php
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
+if ($conn->connect_error) die($conn->connect_error);
 
 require_once('authenticate.php');
 
 $_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
+
+//trending
+	$query = "select * from transaction group by source order by count(*) desc;";
+	$result = $conn->query($query);
+	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";
+		while ($row = $result->fetch_assoc()) {
+			
+		$q= $row['source'];
+		$c[]=$row['category'];
+		$newq[]=substr_replace($q, 'new.png',-4);
+	}
+	//print_r($newq);
+	foreach ($newq as $k => $v) {
+	$query ="INSERT INTO trending VALUES(NULL,'$newq[$k]','$c[$k]')";
+	$result = $conn->query($query);
+	if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
+	
+	$query = "SELECT * FROM trending";
+		$result = $conn->query($query);
+		if (!$result) die ("Database access failed: " . $conn->error);
+		$rows = $result->num_rows;
+		
+		for ($j = 0 ; $j < $rows ; ++$j)
+		{
+			
+			$result->data_seek($j);
+			$row = $result->fetch_array(MYSQLI_NUM);
+			//$g=$row[3];
+			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
+echo <<<_END
+<div class=column style=float:left;padding:10 10 10 10>
+<pre>
+source: $row[1]
+category: $row[2]
+<img src= $row[1] alt="HTML5 Icon" style="width:128px;height:128px">
+
+</pre>
+<form action="startScreen.php" method="post">
+<input type="hidden" name="choose" value="yes">
+<input type="hidden" name="source" value="$row[1]">
+<input type="hidden" name="category" value="$row[2]">
+<input type="submit" value="CHOOSE RECORD">
+</form>
+</div>
+
+_END;
+
+			}
+				$query = "delete  FROM trending";
+		$result = $conn->query($query);
+		if (!$result) die ("Database access failed: " . $conn->error);	
+	}
+
 
 $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 	$result = $conn->query($query);
@@ -15,6 +69,8 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 			$_SESSION["tmpid"]=$row['id'];
 			}
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+	
+	
 
 if (isset($_POST['search']) && isset($_POST['enter']))
 {
@@ -70,66 +126,55 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 	}
 }
 	
-	
-	if (isset($_POST['trending']))
+//choose
+	if (isset($_POST['choose']) && isset($_POST['source']) && isset($_POST['category']))
 {
-	$query = "select * from transaction group by source order by count(*) desc;";
+	$ca = get_post($conn, 'category');
+	echo $ca;
+	$source = get_post($conn, 'source');
+	echo $source;
+	$size=$_FILES['source']['size'];
+	//get size and convert into kb or mb
+ $size = $_FILES['source']['size'];
+	//(size info from php file sizes)
+        if ($size >= 1048576)
+        {
+            $size = number_format($size / 1048576, 2) . ' MB';
+        }
+        elseif ($size >= 1024)
+        {
+            $size = number_format($size / 1024, 2) . ' KB';
+        }
+        elseif ($size > 1)
+        {
+            $size = $size . ' bytes';
+        }
+        elseif ($bytes == 1)
+        {
+            $size = $size . ' byte';
+        }
+        else
+        {
+            $size = '0 bytes';
+        }
+	$tmpName = $_FILES['source']['tmp_name'];        
+list($width, $height, $type, $attr) = getimagesize($tmpName);
+$res= "$width" . 'x' . "$height";
+	$query = "SELECT * FROM trending WHERE source='$source'";
 	$result = $conn->query($query);
-	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";
-	$rows = $result->num_rows;
-		echo "Items bought: ";
-		while ($row = $result->fetch_assoc()) {
-			
-		$q= $row['orderNumber'];
-		$t=$row['customerID'];
-		$u=$row['imageID'];
-		$v=$row['transactionDate'];
-	}
-
 	
-		
-		for ($j = 0 ; $j < $rows ; ++$j)
-		{
-			$result->data_seek($j);
-			$row = $result->fetch_array(MYSQLI_NUM);
-echo <<<_END
-<div class=column style=float:left;padding:10 10 10 10>
-<pre>
-source: $row[3]
-<img src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
+	while ($row = $result->fetch_assoc()) {
+		$t=$row['source'];
+		$v=$row['category'];
+	}
+	 $query ="INSERT INTO cart VALUES(NULL,'$res','$size','$t','$v')";
+		$result = $conn->query($query);
+		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 
-</pre>
-<form action="itemsBought.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="hidden" name="source" value="$row[3]">
-<input type="submit" value="CHOOSE RECORD">
-</form>
-</div>
-_END;
-			}
-			
-			$result->close();
-			$conn->close();
-			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
-			}	
 	}
 	
+
 	
-
-echo <<<_END
-<form action="" method="post">
-<input type="submit" name="trending" value="TRENDING">
-
-</form>
-_END;
-
-//log out
-echo <<<_END
-<form action="loginPage.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="LOG OUT">
-</form>
-_END;
 ?>
 
 <!DOCTYPE html>

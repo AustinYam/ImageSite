@@ -48,6 +48,7 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 		print_r ($s);
 		$ts=$row['source'];
 			$newts[]=substr_replace($ts, '.jpg',-7);
+		$tc[]=$row['category'];
 					
 		
 		
@@ -63,11 +64,10 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 	
 	
 		foreach ($s as $k => $v) {
-			//foreach($newts as $b => $bit){
-    $query ="INSERT INTO transaction VALUES(NULL,'$ti','$s[$k]','$newts[$k]',CURDATE())";
+    $query ="INSERT INTO transaction VALUES(NULL,'$ti','$s[$k]','$newts[$k]','$tc[$k]',CURDATE())";
 	$result = $conn->query($query);
 	if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
-			//}
+			
 }
 
 	

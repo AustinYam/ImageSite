@@ -66,7 +66,6 @@ if(isset($_POST['image_upload']) && isset($_POST['category'])){
  $filepath= "images/".$name;
  //echo $name;
  
- 
  // the target directory
  $target_dir = "upload/";
  $target_file = $target_dir . basename($_FILES["file"]["name"]);
@@ -113,9 +112,8 @@ $newheight = $height/2;
 	$category = get_post($conn, 'category');
 	
 	//water mark
-	
 	$image= imagecreatefromjpeg($name);
-	$foreground = imagecreatefrompng("watermark.png");
+	$foreground = imagecreatefrompng("watermark2.png");
 	$tmpnewname=substr($name, 0, -4);
 	$newname=$tmpnewname."new.png";
 	//echo $newname;
@@ -127,7 +125,7 @@ $newheight = $height/2;
 	
 	
 	//copy images by setting coordinates width and height 
-	imagecopy($image, $foreground, $width/2, $height/2, 0,0 , $width,$height);  //from php website
+	imagecopy($image, $foreground, $newwidth, $newheight, 0,0 , $newwidth,$newheight);  //from php website
 	imagepng($image,$newname);
  
   // Insert record

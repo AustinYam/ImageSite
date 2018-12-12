@@ -130,7 +130,7 @@ $newheight = $height/2;
 	imagepng($image,$newname);
  
   // Insert record
- $query = "insert into music values(NULL,'$res','$size','$newname','$category', ROUND((RAND() * (20-1))+1))";
+ $query = "insert into music values(NULL,'$res','$size','$newname','$category', ROUND((RAND() * (20-1))+1),CURDATE())";
  $result = $conn->query($query);
 if (!$result) die("Database access failed: ". $conn->error);
 

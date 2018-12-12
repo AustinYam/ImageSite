@@ -305,6 +305,64 @@ _END;
 		?>
 		
 	</div>
+	<h2 class="ml-2">Latest Uploads</h2>
+	<div class="row">
+		<?php
+			$query = "select * from music order by postDate desc";
+	$result = $conn->query($query);
+	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";
+		while ($row = $result->fetch_assoc()) {
+			
+		$tsour[]= $row['source'];
+		$tcat[]=$row['category'];
+		//$newq[]=substr_replace($q, 'new.png',-4);
+	}
+	//print_r($newq);
+	foreach ($tsour as $k => $v) {
+	$query ="INSERT INTO trending VALUES(NULL,'$tsour[$k]','$tcat[$k]')";
+	$result = $conn->query($query);
+	if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
+	
+	$query = "SELECT * FROM trending";
+		$result = $conn->query($query);
+		if (!$result) die ("Database access failed: " . $conn->error);
+		$rows = $result->num_rows;
+		
+		for ($j = 0 ; $j < $rows ; ++$j)
+		{
+			
+			$result->data_seek($j);
+			$row = $result->fetch_array(MYSQLI_NUM);
+			//$g=$row[3];
+			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
+echo <<<_END
+
+
+<div class="column ml-2 mb-5 mt-2" style=float:left;padding:10 10 10 10>
+	<div class="card" style="width: 10rem;">
+	  <img class="card-img-top" height = "150" width = "42" src= $row[1] alt="HTML5 Icon">
+	  <div class="card-body">
+	    <form action="startScreen.php" method="post">
+			<input type="hidden" name="choose" value="yes">
+			<input type="hidden" name="source" value="$row[1]">
+			<input type="hidden" name="category" value="$row[2]">
+			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+		</form>
+	  </div>
+	</div>
+
+
+</div>
+_END;
+
+			}
+				$query = "delete  FROM trending";
+		$result = $conn->query($query);
+		if (!$result) die ("Database access failed: " . $conn->error);	
+	}
+		?>
+		
+	</div>
 </body>
 <footer>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>

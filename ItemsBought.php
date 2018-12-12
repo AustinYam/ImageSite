@@ -25,6 +25,7 @@ if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 <head>
 	<title></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
 </head>
 <body>
 	<!--NAVBAR-->
@@ -51,8 +52,13 @@ if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
 					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
 			  </form>
+		       <li class="nav-item" style="position: absolute; right: 0">
+		      	<div>
+		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
+		      	</div>
+		      </li>
 		       <li class="nav-item mr-5" style="position: absolute; right: 0">
-		      	<div class="dropdown">
+		      	<div class="dropdown mr-5">
 		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
 		      		</button>
 		      		<div class="dropdown-menu">

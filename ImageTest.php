@@ -154,10 +154,11 @@ if (!$result) die("Database access failed: ". $conn->error);
 <head>
 	<title></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="startScreen.php">Giggity</a>
+  		<a class="navbar-brand" href="startScreen">Giggity</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -170,15 +171,22 @@ if (!$result) die("Database access failed: ". $conn->error);
 		      <li class="nav-item">
 		        <a class="nav-link" href="ImageTest.php">Upload</a>
 		      </li>
-		       <li class="nav-item">
+		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
+		      </li>   
+		      <li class="nav-item"> 
+			      <a class="nav-link" href="search.php">Search</a>
+			  </li>
+		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
+					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
+			  </form>
+			  <li class="nav-item" style="position: absolute; right: 0">
+		      	<div>
+		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
+		      	</div>
 		      </li>
-		      <form class="form-inline my-2 my-lg-0 ml-5">
-			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		      </form>
-		      <li class="nav-item mr-5" style="position: absolute; right: 0">
-		      	<div class="dropdown">
+		       <li class="nav-item mr-5" style="position: absolute; right: 0">
+		      	<div class="dropdown mr-5">
 		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
 		      		</button>
 		      		<div class="dropdown-menu">

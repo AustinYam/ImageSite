@@ -40,8 +40,9 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 		$u=$row['size'];
 		$v=$row['source'];
 		$w=$row['category'];
+		$x=$row['credits'];
 	}
-	 $query ="INSERT INTO cart VALUES('$s','$t','$u','$v','$w')";
+	 $query ="INSERT INTO cart VALUES('$s','$t','$u','$v','$w','$x')";
 		$result = $conn->query($query);
 		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 		
@@ -129,9 +130,34 @@ $newheight = $height/2;
 	imagepng($image,$newname);
  
   // Insert record
- $query = "insert into music values(NULL,'$res','$size','$newname','$category')";
+ $query = "insert into music values(NULL,'$res','$size','$newname','$category', ROUND((RAND() * (20-1))+1))";
  $result = $conn->query($query);
 if (!$result) die("Database access failed: ". $conn->error);
+
+//update customer credits
+$query ="SELECT * FROM music";
+		$result = $conn->query($query);
+		$tcred=array();
+		
+		while ($row = $result->fetch_assoc()) {
+		$tcred=$row['credits'];
+	}
+
+$query = "SELECT * from customer where userName='$tmp' and password='$p'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			//$_SESSION["tmpid"]=$row['id'];
+			$tid=$row['id'];
+			$tcustcre=$row['credits'];
+			}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+	
+	$newcustcred=$tcred+$tcustcre;
+	$query = "update customer set credits=$newcustcred where id='$tid'";
+ $result = $conn->query($query);
+if (!$result) die("Database access failed: ". $conn->error);
+	
 
   // Upload file (from php website)
   move_uploaded_file($_FILES['file']['name'],$target_dir.$name);
@@ -247,6 +273,7 @@ echo <<<_END
 	    <p class="card-text">resolution: $row[1]</p>
 	    <p class="card-text">size: $row[2]</p>
 	    <p class="card-text">category: $row[4]</p>
+			    <p class="card-text">credits: $row[5]</p>
 	    <form class = "" action="ImageTest.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="id" value="$row[0]">

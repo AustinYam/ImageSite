@@ -60,7 +60,16 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 
 	$query = "SELECT * FROM music WHERE category like '$category'";
 	$result = $conn->query($query);
-	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+while ($row = $result->fetch_assoc()) {
+		$q[]= $row['source'];
+		foreach($q as $value)
+		{
+			$value=strtolower(substr($value, 0, -7));
+			
+		}
+		$test[]=$value;
+	}	
 	$rows = $result->num_rows;
 	for ($j = 0 ; $j < $rows ; ++$j)
 		{
@@ -72,7 +81,7 @@ echo <<<_END
 id $row[0]
 resolution $row[1]
 size $row[2]
-source $row[3]
+source $value
 category $row[4]
 <img src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 
@@ -102,6 +111,15 @@ _END;
 	$query = "SELECT * from music where LOWER(substr(source from 1 for char_length(source)-7)) = LOWER('$category')";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
+	while ($row = $result->fetch_assoc()) {
+		$q[]= $row['source'];
+		foreach($q as $value)
+		{
+			$value=strtolower(substr($value, 0, -7));
+			
+		}
+		$test[]=$value;
+	}
 	$rows = $result->num_rows;
 	for ($j = 0 ; $j < $rows ; ++$j)
 		{
@@ -113,7 +131,7 @@ echo <<<_END
 id $row[0]
 resolution $row[1]
 size $row[2]
-source $row[3]
+source $value
 category $row[4]
 <img src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 

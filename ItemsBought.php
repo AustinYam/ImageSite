@@ -94,17 +94,11 @@ header('Pragma: no-cache');
 		    </ul>
 		  </div>
 	</nav>
+	<h2 class="ml-2">Purchased Images</h2>
 	<div class="row ml-2">
 		<?php 
 		$boughtid= $_SESSION["tmpid"];
 
-//search
-echo <<<_END
-<form action="searchTransaction.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="search images">
-</form>
-_END;
 
 
 $query ="SELECT * FROM transaction where customerID='$boughtid'";
@@ -128,33 +122,6 @@ $query ="SELECT * FROM transaction where customerID='$boughtid'";
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
 echo <<<_END
-<div class=column style=float:left;padding:10 10 10 10>
-<pre>
-orderNumber $row[0]
-customerID $row[1]
-imageID $row[2]
-source $row[3]
-transactionDate $row[4]
-<img src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
-
-</pre>
-<form action="itemsBought.php" method="post">
-<input type="hidden" name="delete" value="yes">
-<input type="hidden" name="orderNumber" value="$row[0]">
-<input type="hidden" name="customerID" value="$row[1]">
-<input type="hidden" name="imageID" value="$row[2]">
-<input type="hidden" name="source" value="$row[3]">
-<input type="hidden" name="transactionDate" value="$row[4]">
-<input type="submit" value="DELETE RECORD">
-</form>
-<form action="itemsBought.php" method="post">
-<input type="hidden" name="download" value="yes">
-<input type="hidden" name="orderNumber" value="$row[0]">
-<input type="hidden" name="customerID" value="$row[1]">
-<input type="hidden" name="imageID" value="$row[2]">
-<input type="hidden" name="source" value="$row[3]">
-<input type="hidden" name="transactionDate" value="$row[4]">
-<input type="submit" value="DOWNLOAD RECORD">
 	<div class="card">
 	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 	<div class="card-body">

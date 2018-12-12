@@ -82,7 +82,8 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	}
 	else{
-		echo "its not available";
+		$message = "Image Sold Out";
+		echo "<script type='text/javascript'>alert('$message');</script>";
 	}
 	
 
@@ -201,7 +202,7 @@ _END;
 <body>
 	<!--NAVBAR-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="startScreen.php">Giggity</a>
+  		<h2 class="display-5"><a class="navbar-brand" href="startScreen.php">Giggity</a></h2>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -246,6 +247,7 @@ _END;
 		    </ul>
 		  </div>
 	</nav>
+	<h2 class="ml-2">Trending</h2>
 	<div class="row">
 		<?php
 			$query = "select * from transaction where transactionDate between '2018-12-11' and '2018-12-12'  group by source order by count(*) desc";

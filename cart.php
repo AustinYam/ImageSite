@@ -144,11 +144,11 @@ _END;
 		    </ul>
 		  </div>
 	</nav>
-	<div class="mr-5 mb-5" style="position: absolute; right: 0">
-		<form action="cart.php" method="post">
+	<div class="mr-5 mb-5" style="position: fixed; right: 0">
+		<form class="mt-2 mr-5"  action="cart.php" method="post">
 			<input type="hidden" name="id" value="">
 			<input type="hidden" name="buy" value="yes">
-			<button class="btn btn-outline-success" type="submit">Purchase</button>
+			<button class="btn btn-outline-success btn-lg" type="submit">Purchase</button>
 		</form>
 	</div>
 	<div class="row">

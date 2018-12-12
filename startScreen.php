@@ -9,8 +9,21 @@ $_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 
+//credits
+ $query = "SELECT * from customer where userName='$tmp' and password='$p'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			$ti=$row['id'];
+			$tcustcre=$row['credits'];
+			}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+	echo"</br>";
+	echo "you have $".$tcustcre;
+	echo "</br>";
+
 //trending
-	$query = "select * from transaction group by source order by count(*) desc;";
+	$query = "select * from transaction where transactionDate between '2018-12-11' and '2018-12-12'  group by source order by count(*) desc";
 	$result = $conn->query($query);
 	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";
 		while ($row = $result->fetch_assoc()) {
@@ -71,6 +84,50 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	
 	
+	//choose
+	if (isset($_POST['choose'])&& isset($_POST['category']) && isset($_POST['source']) )
+{
+	$ca = mysqli_real_escape_string($conn, $_POST['category']);
+	echo $ca;
+	echo "</br>";
+	$source = mysqli_real_escape_string($conn, $_POST['source']);
+	//echo $source;
+	
+	
+	$query = "SELECT * from music where source='$source'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			//$_SESSION["tmpid"]=$row['id'];
+			$sou=$row['source'];
+			}
+			//echo $sou;
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+	
+	/*
+	if($source==$sou)
+	{
+	$query = "SELECT * from music where source='$source'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			//$_SESSION["tmpid"]=$row['id'];
+			$iid=$row['id'];
+			$t=$row['resolution'];
+		$u=$row['size'];
+		$sou=$row['source'];
+		$w=$row['category'];
+		$x=$row['credits'];
+			}
+			
+			//echo $sou;
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
+	}
+	*/
+	
+
+}
+	
 
 if (isset($_POST['search']) && isset($_POST['enter']))
 {
@@ -125,56 +182,6 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	}
 }
-	
-//choose
-	if (isset($_POST['choose']) && isset($_POST['source']) && isset($_POST['category']))
-{
-	$ca = get_post($conn, 'category');
-	echo $ca;
-	$source = get_post($conn, 'source');
-	echo $source;
-	$size=$_FILES['source']['size'];
-	//get size and convert into kb or mb
- $size = $_FILES['source']['size'];
-	//(size info from php file sizes)
-        if ($size >= 1048576)
-        {
-            $size = number_format($size / 1048576, 2) . ' MB';
-        }
-        elseif ($size >= 1024)
-        {
-            $size = number_format($size / 1024, 2) . ' KB';
-        }
-        elseif ($size > 1)
-        {
-            $size = $size . ' bytes';
-        }
-        elseif ($bytes == 1)
-        {
-            $size = $size . ' byte';
-        }
-        else
-        {
-            $size = '0 bytes';
-        }
-	$tmpName = $_FILES['source']['tmp_name'];        
-list($width, $height, $type, $attr) = getimagesize($tmpName);
-$res= "$width" . 'x' . "$height";
-	$query = "SELECT * FROM trending WHERE source='$source'";
-	$result = $conn->query($query);
-	
-	while ($row = $result->fetch_assoc()) {
-		$t=$row['source'];
-		$v=$row['category'];
-	}
-	 $query ="INSERT INTO cart VALUES(NULL,'$res','$size','$t','$v')";
-		$result = $conn->query($query);
-		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
-
-	}
-	
-
-	
 ?>
 
 <!DOCTYPE html>

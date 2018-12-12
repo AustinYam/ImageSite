@@ -19,6 +19,27 @@ if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 	$result = $conn->query($query);
 	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
 	}
+	if (isset($_POST['download']) && isset($_POST['orderNumber']))
+{
+	$id = get_post($conn, 'orderNumber');
+	echo $id;
+	$query = "select * from transaction WHERE orderNumber='$id'";
+	$result = $conn->query($query);
+	while($row = $result->fetch_assoc())
+{ 
+		$q= $row['orderNumber'];
+		$t=$row['customerID'];
+		$u=$row['imageID'];
+		$w=$row['source'];
+		$v=$row['transactionDate'];
+}
+if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+header("Content-type: ".$type);
+header('Content-Disposition: attachment; filename="'.$row[3].'"');
+header("Content-Transfer-Encoding: binary"); 
+header('Expires: 0');
+header('Pragma: no-cache');
+	}
 
 $boughtid= $_SESSION["tmpid"];
 echo $boughtid;
@@ -42,6 +63,7 @@ $query ="SELECT * FROM transaction where customerID='$boughtid'";
 		$q= $row['orderNumber'];
 		$t=$row['customerID'];
 		$u=$row['imageID'];
+		$w=$row['source'];
 		$v=$row['transactionDate'];
 	}
 
@@ -71,6 +93,14 @@ transactionDate $row[4]
 <input type="hidden" name="transactionDate" value="$row[4]">
 <input type="submit" value="DELETE RECORD">
 </form>
+<form action="itemsBought.php" method="post">
+<input type="hidden" name="download" value="yes">
+<input type="hidden" name="orderNumber" value="$row[0]">
+<input type="hidden" name="customerID" value="$row[1]">
+<input type="hidden" name="imageID" value="$row[2]">
+<input type="hidden" name="source" value="$row[3]">
+<input type="hidden" name="transactionDate" value="$row[4]">
+<input type="submit" value="DOWNLOAD RECORD">
 </div>
 _END;
 			}

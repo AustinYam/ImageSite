@@ -50,7 +50,7 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 		
 		while ($row = $result->fetch_assoc()) {
 		$s[]=$row['id'];
-		print_r ($s);
+		//print_r ($s);
 		$ts=$row['source'];
 			$newts[]=substr_replace($ts, '.jpg',-7);
 		$tc[] = $row['category'];

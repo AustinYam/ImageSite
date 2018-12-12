@@ -212,6 +212,15 @@ if (!$result) die("Database access failed: ". $conn->error);
 			$query = "SELECT * FROM music";
 		$result = $conn->query($query);
 		if (!$result) die ("Database access failed: " . $conn->error);
+		while ($row = $result->fetch_assoc()) {
+		$q[]= $row['source'];
+		foreach($q as $value)
+		{
+			$value=strtolower(substr($value, 0, -7));
+			
+		}
+		$test[]=$value;
+	}
 		$rows = $result->num_rows;
 		
 		for ($j = 0 ; $j < $rows ; ++$j)
@@ -219,7 +228,13 @@ if (!$result) die("Database access failed: ". $conn->error);
 			
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
-			$g=$row[3];
+			$g[]=$row[3];
+			foreach($g as $value)
+		{
+			$value=substr($value, 0, -7);
+			
+		}
+		//echo $value;
 			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
 echo <<<_END
 
@@ -227,7 +242,7 @@ echo <<<_END
 	<div class="card" style="width: 15rem;">
 	  <img class="card-img-top" src= $row[3] alt="HTML5 Icon">
 	  <div class="card-body">
-	    <h5 class="card-title">$row[3]</h5>
+	    <h5 class="card-title">$value</h5>
 	    <p class="card-text">id: $row[0]</p>
 	    <p class="card-text">resolution: $row[1]</p>
 	    <p class="card-text">size: $row[2]</p>

@@ -23,6 +23,15 @@ if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 $boughtid= $_SESSION["tmpid"];
 echo $boughtid;
 
+//search
+echo <<<_END
+<form action="searchTransaction.php" method="post">
+<input type="hidden" name="choose" value="yes">
+<input type="submit" value="search images">
+</form>
+_END;
+
+
 $query ="SELECT * FROM transaction where customerID='$boughtid'";
 		$result = $conn->query($query);
 		if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";

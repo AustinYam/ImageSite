@@ -31,11 +31,14 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			//echo $row['password']."<br>";
 			$_SESSION["pass"]=$row['password'];
 			}
+
 			
 	
 	
 	if ($username==$_SESSION["user"] && $passwordunhash===$_SESSION["pass"])
 	{
+		session_start();
+        $_SESSION["authenticated"] = 'true';
 		header("location: startScreen.php");
 	}
 	else

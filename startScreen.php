@@ -1,7 +1,8 @@
 <?php
-session_start();
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
+
+require_once('authenticate.php');
 
 $_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
@@ -50,7 +51,7 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 		    		Welcome, <?= $tmp ?>
 			    	 <li class="nav-item">
 			    	 	<input type="hidden" name="choose" value="yes">
-				        <a class="nav-link" value="Log out" href="loginPage.php">Logout</a>
+				        <a class="nav-link" value="Log out" href="logout.php">Logout</a>
 				     </li>
 			     </form>
 		    </ul>

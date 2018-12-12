@@ -203,7 +203,7 @@ if (!$result) die("Database access failed: ". $conn->error);
 		<div class="row">
 			<form method="post" action="" enctype='multipart/form-data'>
 				<label class="btn btn-outline-success btn-file mt-2">
-				    Select Image<input type="file" style="display: none;">
+				    Select Image<input type="file" name="file" style="display: none;">
 				</label><br>
 				Category<input class="ml-2" type="text" name="category">
 				<button class="btn btn-outline-success" type='submit' name='image_upload'>Upload</button>

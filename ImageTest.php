@@ -274,7 +274,7 @@ echo <<<_END
 
 <div class="column ml-2 mb-5" style=float:left;padding:10 10 10 10>
 	<div class="card" style="width: 15rem;">
-	  <img class="card-img-top" width = "100" height = "200" src= $row[3] alt="HTML5 Icon">
+	  <img class="card-img-top" src= $row[3] alt="HTML5 Icon">
 	  <div class="card-body">
 	    <h5 class="card-title">$value</h5>
 	    <p class="card-text">id: $row[0]</p>

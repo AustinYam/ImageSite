@@ -136,6 +136,13 @@ _END;
 		    </ul>
 		  </div>
 	</nav>
+	<div class="mr-5 mb-5" style="position: absolute; right: 0">
+		<form action="cart.php" method="post">
+			<input type="hidden" name="id" value="">
+			<input type="hidden" name="buy" value="yes">
+			<button class="btn btn-outline-success" type="submit">Purchase</button>
+		</form>
+	</div>
 	<div class="row">
 		<?php
 			 $query ="SELECT * FROM cart";
@@ -190,13 +197,6 @@ _END;
 			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
 			}	
 		?>
-	</div>
-	<div class="mr-5 mb-5" style="position: absolute; right: 0">
-		<form action="cart.php" method="post">
-			<input type="hidden" name="id" value="">
-			<input type="hidden" name="buy" value="yes">
-			<button class="btn btn-outline-success" type="submit">Purchase</button>
-		</form>
 	</div>
 </body>
 <footer>

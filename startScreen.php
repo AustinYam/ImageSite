@@ -8,6 +8,7 @@ require_once('authenticate.php');
 $_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
+$tcustcre;
 
 //credits
  $query = "SELECT * from customer where userName='$tmp' and password='$p'";
@@ -23,56 +24,7 @@ $p= $_SESSION["pass"];
 	echo "</br>";
 
 //trending
-	$query = "select * from transaction where transactionDate between '2018-12-11' and '2018-12-12'  group by source order by count(*) desc";
-	$result = $conn->query($query);
-	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";
-		while ($row = $result->fetch_assoc()) {
-			
-		$q= $row['source'];
-		$c[]=$row['category'];
-		$newq[]=substr_replace($q, 'new.png',-4);
-	}
-	//print_r($newq);
-	foreach ($newq as $k => $v) {
-	$query ="INSERT INTO trending VALUES(NULL,'$newq[$k]','$c[$k]')";
-	$result = $conn->query($query);
-	if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 	
-	$query = "SELECT * FROM trending";
-		$result = $conn->query($query);
-		if (!$result) die ("Database access failed: " . $conn->error);
-		$rows = $result->num_rows;
-		
-		for ($j = 0 ; $j < $rows ; ++$j)
-		{
-			
-			$result->data_seek($j);
-			$row = $result->fetch_array(MYSQLI_NUM);
-			//$g=$row[3];
-			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
-echo <<<_END
-<div class=column style=float:left;padding:10 10 10 10>
-<pre>
-source: $row[1]
-category: $row[2]
-<img src= $row[1] alt="HTML5 Icon" style="width:128px;height:128px">
-
-</pre>
-<form action="startScreen.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="hidden" name="source" value="$row[1]">
-<input type="hidden" name="category" value="$row[2]">
-<input type="submit" value="CHOOSE RECORD">
-</form>
-</div>
-
-_END;
-
-			}
-				$query = "delete  FROM trending";
-		$result = $conn->query($query);
-		if (!$result) die ("Database access failed: " . $conn->error);	
-	}
 
 
 $query = "SELECT id from customer where userName='$tmp' and password='$p'";
@@ -103,27 +55,6 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 			}
 			//echo $sou;
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-	
-	/*
-	if($source==$sou)
-	{
-	$query = "SELECT * from music where source='$source'";
-	$result = $conn->query($query);
-	while ($row = $result->fetch_assoc()) {
-			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
-			//$_SESSION["tmpid"]=$row['id'];
-			$iid=$row['id'];
-			$t=$row['resolution'];
-		$u=$row['size'];
-		$sou=$row['source'];
-		$w=$row['category'];
-		$x=$row['credits'];
-			}
-			
-			//echo $sou;
-	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
-	}
-	*/
 	
 
 }
@@ -240,7 +171,7 @@ _END;
 <body>
 	<!--NAVBAR-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="startScreen">Giggity</a>
+  		<a class="navbar-brand" href="startScreen.php">Giggity</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -262,6 +193,11 @@ _END;
 		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
 					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
 			  </form>
+			  <li class="nav-item mr-5">
+			  	<div class="ml-5">
+			  		<a class="nav-link ml-5" style="position: absolute; right: 0" href="#">You have $<?= $tcustcre ?></a>
+			  	</div>
+			  </li>
 			  <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>
 		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
@@ -283,6 +219,61 @@ _END;
 		    </ul>
 		  </div>
 	</nav>
+	<div class="row">
+		<?php
+			$query = "select * from transaction where transactionDate between '2018-12-11' and '2018-12-12'  group by source order by count(*) desc";
+	$result = $conn->query($query);
+	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";
+		while ($row = $result->fetch_assoc()) {
+			
+		$q= $row['source'];
+		$c[]=$row['category'];
+		$newq[]=substr_replace($q, 'new.png',-4);
+	}
+	//print_r($newq);
+	foreach ($newq as $k => $v) {
+	$query ="INSERT INTO trending VALUES(NULL,'$newq[$k]','$c[$k]')";
+	$result = $conn->query($query);
+	if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
+	
+	$query = "SELECT * FROM trending";
+		$result = $conn->query($query);
+		if (!$result) die ("Database access failed: " . $conn->error);
+		$rows = $result->num_rows;
+		
+		for ($j = 0 ; $j < $rows ; ++$j)
+		{
+			
+			$result->data_seek($j);
+			$row = $result->fetch_array(MYSQLI_NUM);
+			//$g=$row[3];
+			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
+echo <<<_END
+<div class=column style=float:left;padding:10 10 10 10>
+<pre>
+source: $row[1]
+category: $row[2]
+<img src= $row[1] alt="HTML5 Icon" style="width:128px;height:128px">
+
+</pre>
+<form action="startScreen.php" method="post">
+<input type="hidden" name="choose" value="yes">
+<input type="hidden" name="source" value="$row[1]">
+<input type="hidden" name="category" value="$row[2]">
+<input type="submit" value="CHOOSE RECORD">
+</form>
+</div>
+
+_END;
+
+			}
+				$query = "delete  FROM trending";
+		$result = $conn->query($query);
+		if (!$result) die ("Database access failed: " . $conn->error);	
+	}
+		?>
+		
+	</div>
 </body>
 <footer>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>

@@ -39,7 +39,7 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php">Browse</a>
+		        <a class="nav-link" href="ImageTest.php">Upload</a>
 		      </li>
 		      <form class="form-inline my-2 my-lg-0 ml-5">
 			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

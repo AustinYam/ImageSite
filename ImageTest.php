@@ -53,15 +53,8 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 	}
 	
 //display cart
-echo <<<_END
-<form action="cart.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="CART">
-</form>
-_END;
 
 // test if connection is successful . MAMAMIA
-echo "Mamamia my Music database". '<br>'. '<br>';
 
 // upload image and insert into Database
 if(isset($_POST['image_upload']) && isset($_POST['category'])){
@@ -125,7 +118,7 @@ $newheight = $height/2;
 	$foreground = imagecreatefrompng("watermark.png");
 	$tmpnewname=substr($name, 0, -4);
 	$newname=$tmpnewname."new.png";
-	echo $newname;
+	//echo $newname;
 	//save alpha channel information ( from php website)
 	imagesavealpha($foreground, true); 
 	
@@ -147,33 +140,81 @@ if (!$result) die("Database access failed: ". $conn->error);
 
 }
 }
-echo <<<_END
-<form method="post" action="" enctype='multipart/form-data'>
-<input type='file' name='file' /></br>
-category<input type="text" name="category">
-<input type='submit' value='Save' name='image_upload'>
-</form>
-_END;
 
-//log out
-echo <<<_END
-<form action="loginPage.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="LOG OUT">
-</form>
-_END;
-
-//items bought
-echo <<<_END
-<form action="ItemsBought.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="ITEMS BOUGHT">
-</form>
-_END;
 
 //from sqltest example provided by professor
 // show the image database on webpage
-$query = "SELECT * FROM music";
+			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
+			}	
+			
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  		<a class="navbar-brand" href="#">Giggity</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		 </button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item">
+		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="ImageTest.php">Upload</a>
+		      </li>
+		      <form class="form-inline my-2 my-lg-0 ml-5">
+			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		    	  </form>
+		    </ul>
+		    <ul class="navbar-nav">
+		    	<form action="loginPage.php" method="post">
+		    		Welcome, <?= $tmp ?>
+			    	 <li class="nav-item">
+			    	 	<input type="hidden" name="choose" value="yes">
+				        <a class="nav-link" value="Log out" href="logout.php">Logout</a>
+				     </li>
+			     </form>
+		    </ul>
+		  </div>
+	</nav>
+	<div class="container-fluid ml-5">
+		<div class="row">
+			<form action="search.php" method="post">
+				<input type="hidden" name="choose" value="yes">
+				<input type="submit" value="search images">
+			</form>
+		</div>
+		<div class="row">
+			<form action="cart.php" method="post">
+				<input type="hidden" name="choose" value="yes">
+				<input type="submit" value="CART">
+			</form>
+		</div>
+		<div class="row">
+			<form method="post" action="" enctype='multipart/form-data'>
+				<input type='file' name='file' /></br>
+				category<input type="text" name="category">
+				<input type='submit' value='Save' name='image_upload'>
+			</form>
+		</div>
+		<div class="row">
+			<form action="ItemsBought.php" method="post">
+				<input type="hidden" name="choose" value="yes">
+				<input type="submit" value="ITEMS BOUGHT">
+			</form>
+		</div>
+		<div class="row">
+			<?php
+			$query = "SELECT * FROM music";
 		$result = $conn->query($query);
 		if (!$result) die ("Database access failed: " . $conn->error);
 		$rows = $result->num_rows;
@@ -212,57 +253,10 @@ category: $row[4]
 
 _END;
 
-			}		
-			$result->close();
-			$conn->close();
-			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
 			}	
-			
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="#">Giggity</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		 </button>
-
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item">
-		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php">Browse</a>
-		      </li>
-		      <form class="form-inline my-2 my-lg-0 ml-5">
-			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		    	  </form>
-		    </ul>
-		    <ul class="navbar-nav">
-		    	<form action="loginPage.php" method="post">
-		    		Welcome, <?= $tmp ?>
-			    	 <li class="nav-item">
-			    	 	<input type="hidden" name="choose" value="yes">
-				        <a class="nav-link" value="Log out" href="logout.php">Logout</a>
-				     </li>
-			     </form>
-		    </ul>
-		  </div>
-	</nav>
-	<div class="container">
-		<div class="row">
-			<form action="search.php" method="post">
-				<input type="hidden" name="choose" value="yes">
-				<input type="submit" value="search images">
-			</form>
+			$result->close();
+			$conn->close();	
+			?>
 		</div>
 	</div>
 </body>

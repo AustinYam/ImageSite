@@ -182,6 +182,52 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	}
 }
+
+	
+	if (isset($_POST['trending']))
+{
+	$query = "select * from transaction group by source order by count(*) desc;";
+	$result = $conn->query($query);
+	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";
+	$rows = $result->num_rows;
+		echo "Items bought: ";
+		while ($row = $result->fetch_assoc()) {
+			
+		$q= $row['orderNumber'];
+		$t=$row['customerID'];
+		$u=$row['imageID'];
+		$v=$row['transactionDate'];
+	}
+
+	
+		
+		for ($j = 0 ; $j < $rows ; ++$j)
+		{
+			$result->data_seek($j);
+			$row = $result->fetch_array(MYSQLI_NUM);
+echo <<<_END
+<div class=column style=float:left;padding:10 10 10 10>
+<pre>
+source: $row[3]
+<img src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
+
+</pre>
+<form action="itemsBought.php" method="post">
+<input type="hidden" name="choose" value="yes">
+<input type="hidden" name="source" value="$row[3]">
+<input type="submit" value="CHOOSE RECORD">
+</form>
+</div>
+_END;
+			}
+			
+			$result->close();
+			$conn->close();
+			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
+			}	
+	}
+	
+	
 ?>
 
 <!DOCTYPE html>
@@ -189,11 +235,12 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 <head>
 	<title></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
 </head>
 <body>
 	<!--NAVBAR-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="#">Giggity</a>
+  		<a class="navbar-brand" href="startScreen">Giggity</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -208,13 +255,20 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
+		      </li>   
+		      <li class="nav-item"> 
+			      <a class="nav-link" href="search.php">Search</a>
+			  </li>
+		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
+					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
+			  </form>
+			  <li class="nav-item" style="position: absolute; right: 0">
+		      	<div>
+		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
+		      	</div>
 		      </li>
-		      <form class="form-inline my-2 my-lg-0 ml-5" method="post">
-			      <input class="form-control mr-sm-2" type="search" name="enter" placeholder="Search" aria-label="Search">
-			      <button class="btn btn-outline-success my-2 my-sm-0" name="search" type="submit">Search</button>
-		      </form>
 		       <li class="nav-item mr-5" style="position: absolute; right: 0">
-		      	<div class="dropdown">
+		      	<div class="dropdown mr-5">
 		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
 		      		</button>
 		      		<div class="dropdown-menu">

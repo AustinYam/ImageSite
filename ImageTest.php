@@ -2,139 +2,21 @@
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
-/*
-//search
-echo <<<_END
-<form action="" method="post">
 
-<input type="text" name="enter">
-search by<type="label" name="searchby">
-<select>
-<option name="category">category</option>
-<option value="name">name</option>
-<option value="size">size</option>
-</select>
-<input type="submit" name="search" value="SEARCH">
-
-</form>
-_END;
-
-if (isset($_POST['search']) && isset($_POST['enter']))
-{
-	$t=array();
-	$q=array();
-	$value=array();
-	$val="";
-	$category = get_post($conn, 'enter');
-	echo $category;
-	echo "</br>";
-	//$query = "SELECT * FROM music WHERE category='$category'";
-	$query = "SELECT * FROM music";
-	$result = $conn->query($query);
-	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-	$rows = $result->num_rows;
-	while ($row = $result->fetch_assoc()) {
-			
-		$q[]= $row['source'];
-		foreach($q as $value)
-		{
-			$value=strtolower(substr($value, 0, -4));
-			
-		}
-		$test[]=$value;
-		//echo $value;
-		//$val=$value;
-		
-		$t[]=$row['category'];
-		//echo $q;
-		
-		//print_r ($t);
-	}
-	echo "</br>";
-	print_r($t);
-	print_r($test);
-	echo $category;
-	if(in_array($category, $t)!==false)
-	{
-
-	$query = "SELECT * FROM music WHERE category like '$category'";
-	$result = $conn->query($query);
-	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
-	$rows = $result->num_rows;
-	for ($j = 0 ; $j < $rows ; ++$j)
-		{
-			$result->data_seek($j);
-			$row = $result->fetch_array(MYSQLI_NUM);
-echo <<<_END
-<pre>
-id $row[0]
-resolution $row[1]
-size $row[2]
-source $row[3]
-category $row[4]
-</pre>
-<form action="ImageTest.php" method="post">
-<input type="hidden" name="delete" value="yes">
-<input type="hidden" name="id" value="$row[0]">
-<input type="submit" value="DELETE RECORD">
-</form>
-<form action="ImageTest.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="hidden" name="id" value="$row[0]">
-<input type="submit" value="CHOOSE RECORD">
-</form>
-_END;
-			}		
-	}
-	
-	echo $category;
-	 if(in_array($category, $test)!==false)
-	{
-		echo $category;
-		echo "</br>";
-		echo $val;
-	echo "yes";
-	$query = "SELECT * from music where LOWER(substr(source from 1 for char_length(source)-4)) = LOWER('$category')";
-	$result = $conn->query($query);
-	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
-	$rows = $result->num_rows;
-	for ($j = 0 ; $j < $rows ; ++$j)
-		{
-			$result->data_seek($j);
-			$row = $result->fetch_array(MYSQLI_NUM);
-echo <<<_END
-<pre>
-id $row[0]
-resolution $row[1]
-size $row[2]
-source $row[3]
-category $row[4]
-</pre>
-<form action="ImageTest.php" method="post">
-<input type="hidden" name="delete" value="yes">
-<input type="hidden" name="id" value="$row[0]">
-<input type="submit" value="DELETE RECORD">
-</form>
-<form action="ImageTest.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="hidden" name="id" value="$row[0]">
-<input type="submit" value="CHOOSE RECORD">
-</form>
-_END;
-			}		
-	}
-			
-	}
-	*/
 	//search 
-echo <<<_END
-<form action="search.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="search images">
-</form>
-_END;
+require_once('authenticate.php');
 
+$_SESSION["tmpid"]="";
+$tmp= $_SESSION["user"];
+$p= $_SESSION["pass"];
 
+$query = "SELECT id from customer where userName='$tmp' and password='$p'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			$_SESSION["tmpid"]=$row['id'];
+			}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 //from sqltest example provided by professor
 //delete from database
 if (isset($_POST['delete']) && isset($_POST['id']))
@@ -171,15 +53,8 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 	}
 	
 //display cart
-echo <<<_END
-<form action="cart.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="CART">
-</form>
-_END;
 
 // test if connection is successful . MAMAMIA
-echo "Mamamia my Music database". '<br>'. '<br>';
 
 // upload image and insert into Database
 if(isset($_POST['image_upload']) && isset($_POST['category'])){
@@ -243,7 +118,7 @@ $newheight = $height/2;
 	$foreground = imagecreatefrompng("watermark.png");
 	$tmpnewname=substr($name, 0, -4);
 	$newname=$tmpnewname."new.png";
-	echo $newname;
+	//echo $newname;
 	//save alpha channel information ( from php website)
 	imagesavealpha($foreground, true); 
 	
@@ -265,33 +140,78 @@ if (!$result) die("Database access failed: ". $conn->error);
 
 }
 }
-echo <<<_END
-<form method="post" action="" enctype='multipart/form-data'>
-<input type='file' name='file' /></br>
-category<input type="text" name="category">
-<input type='submit' value='Save' name='image_upload'>
-</form>
-_END;
 
-//log out
-echo <<<_END
-<form action="loginPage.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="LOG OUT">
-</form>
-_END;
-
-//items bought
-echo <<<_END
-<form action="ItemsBought.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="submit" value="ITEMS BOUGHT">
-</form>
-_END;
 
 //from sqltest example provided by professor
 // show the image database on webpage
-$query = "SELECT * FROM music";
+			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
+			}	
+			
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  		<a class="navbar-brand" href="#">Giggity</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		 </button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item">
+		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="ImageTest.php">Upload</a>
+		      </li>
+		       <li class="nav-item">
+		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
+		      </li>
+		      <form class="form-inline my-2 my-lg-0 ml-5">
+			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		      </form>
+		      <li class="nav-item mr-5" style="position: absolute; right: 0">
+		      	<div class="dropdown">
+		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
+		      		</button>
+		      		<div class="dropdown-menu">
+					    <a class="dropdown-item" href="cart.php">Cart</a>
+					    <a class="dropdown-item" href="ItemsBought.php">Purchases</a>
+					    <a class="dropdown-item" href="ImageTest.php">Upload</a>
+					    <div class="dropdown-divider"></div>
+					    <a class="dropdown-item" href="logout.php">Logout</a>
+					</div>
+		      	</div>
+		      </li>
+		    </ul>
+		  </div>
+	</nav>
+	<div class="container-fluid ml-5">
+		<div class="row">
+			<form action="search.php" method="post">
+				<input type="hidden" name="choose" value="yes">
+				<button class="btn btn-outline-success mt-2" type="submit">Browse Images</button>
+			</form>
+		</div>
+		<div class="row">
+			<form method="post" action="" enctype='multipart/form-data'>
+				<label class="btn btn-outline-success btn-file mt-2">
+				    Select Image<input type="file" style="display: none;">
+				</label><br>
+				Category<input class="ml-2" type="text" name="category">
+				<button class="btn btn-outline-success" type='submit' name='image_upload'>Upload</button>
+			</form>
+		</div>
+		<div class="row">
+			<?php
+			$query = "SELECT * FROM music";
 		$result = $conn->query($query);
 		if (!$result) die ("Database access failed: " . $conn->error);
 		$rows = $result->num_rows;
@@ -305,45 +225,43 @@ $query = "SELECT * FROM music";
 			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
 echo <<<_END
 
-<div class=column style=float:left;padding:10 10 10 10>
-<pre>
-id: $row[0]
-resolution: $row[1]
-size: $row[2]
-source: $row[3]
-category: $row[4]
-<img src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
+<div class="column ml-2 mb-5" style=float:left;padding:10 10 10 10>
+	<div class="card" style="width: 15rem;">
+	  <img class="card-img-top" src= $row[3] alt="HTML5 Icon">
+	  <div class="card-body">
+	    <h5 class="card-title">$row[3]</h5>
+	    <p class="card-text">id: $row[0]</p>
+	    <p class="card-text">resolution: $row[1]</p>
+	    <p class="card-text">size: $row[2]</p>
+	    <p class="card-text">category: $row[4]</p>
+	    <form class = "" action="ImageTest.php" method="post">
+			<input type="hidden" name="delete" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-success" type="submit">Delete</button>
+		</form>
+		<form class = "mt-2" action="ImageTest.php" method="post">
+			<input type="hidden" name="choose" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+		</form>
+	  </div>
+	</div>
 
-</pre>
 
-<form action="ImageTest.php" method="post">
-<input type="hidden" name="delete" value="yes">
-<input type="hidden" name="id" value="$row[0]">
-<input type="submit" value="DELETE RECORD">
-</form>
-<form action="ImageTest.php" method="post">
-<input type="hidden" name="choose" value="yes">
-<input type="hidden" name="id" value="$row[0]">
-<input type="submit" value="CHOOSE RECORD">
-</form>
 </div>
 
 _END;
 
-			}		
-			$result->close();
-			$conn->close();
-			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
 			}	
-			
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-
+			$result->close();
+			$conn->close();	
+			?>
+		</div>
+	</div>
 </body>
+<footer>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</footer>
 </html>

@@ -123,9 +123,7 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 		//print_r ($t);
 	}
 	echo "</br>";
-	//print_r($t);
-	//print_r($test);
-	//echo $category;
+
 	if(in_array($category, $t)!==false)
 	{
 
@@ -199,8 +197,73 @@ _END;
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
 
+	<style type="text/css">
+		@font-face{font-family:'Calluna';
+ src:url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/callunasansregular-webfont.woff') format('woff');
+}
+body {
+	background: url(//subtlepatterns.com/patterns/scribble_light.png);
+  font-family: Calluna, Arial, sans-serif;
+  min-height: 1000px;
+}
+#columns {
+	column-width: 320px;
+	column-gap: 15px;
+  width: 90%;
+	max-width: 1100px;
+	margin: 50px auto;
+}
+
+div#columns figure {
+	background: #fefefe;
+	border: 2px solid #fcfcfc;
+	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+	margin: 0 2px 15px;
+	padding: 15px;
+	padding-bottom: 10px;
+	transition: opacity .4s ease-in-out;
+  display: inline-block;
+  column-break-inside: avoid;
+}
+
+div#columns figure img {
+	width: 100%; height: auto;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 15px;
+	margin-bottom: 5px;
+}
+
+div#columns figure figcaption {
+  font-size: .9rem;
+	color: #444;
+  line-height: 1.5;
+}
+
+div#columns small { 
+  font-size: 1rem;
+  float: right; 
+  text-transform: uppercase;
+  color: #aaa;
+} 
+
+div#columns small a { 
+  color: #666; 
+  text-decoration: none; 
+  transition: .4s color;
+}
+
+div#columns:hover figure:not(:hover) {
+	opacity: 0.4;
+}
+
+@media screen and (max-width: 750px) { 
+  #columns { column-gap: 0px; }
+  #columns figure { width: 100%; }
+}
+	</style>
 </head>
 <body>
+	<!--NAVBAR-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
   		<h2 class="display-5"><a class="navbar-brand" href="startScreen.php">Welcome to Giggity</a></h2>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -213,17 +276,14 @@ _END;
 		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php"><?= $tmp ?>'s Wall</a>
+		        <a class="nav-link" href="ImageTest.php">Share</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>   
 		      <li class="nav-item"> 
-			      <a class="nav-link" href="search.php">Search</a>
+			      <a class="nav-link" href="searchTransaction.php">Search</a>
 			  </li>
-		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
-					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
-			  </form>
 			  <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>
 		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
@@ -247,8 +307,8 @@ _END;
 		    </ul>
 		  </div>
 	</nav>
-	<h2 class="ml-2">Trending</h2>
-	<div class="row">
+	<h2 class="ml-2 mt-3">Trending</h2>
+	<div id="columns" class="row">
 		<?php
 			$query = "select * from transaction where transactionDate between '2018-12-11' and '2018-12-12'  group by source order by count(*) desc";
 	$result = $conn->query($query);
@@ -279,10 +339,10 @@ _END;
 			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
 echo <<<_END
 
-
+<figure>
 <div class="column ml-2 mb-5 mt-2" style=float:left;padding:10 10 10 10>
-	<div class="card" style="width: 10rem;">
-	  <img class="card-img-top"  src= $row[1] alt="HTML5 Icon">
+	<div class="card" style="">
+	  <img class="card-img-top" height ="150" width = "42" src= $row[1] alt="HTML5 Icon">
 	  <div class="card-body">
 	    <form action="startScreen.php" method="post">
 			<input type="hidden" name="choose" value="yes">
@@ -292,9 +352,8 @@ echo <<<_END
 		</form>
 	  </div>
 	</div>
-
-
 </div>
+</figure>
 _END;
 
 			}
@@ -306,7 +365,7 @@ _END;
 		
 	</div>
 	<h2 class="ml-2">Latest Uploads</h2>
-	<div class="row">
+	<div id="columns" class="row">
 		<?php
 			$query = "select * from music order by postDate desc";
 	$result = $conn->query($query);
@@ -337,9 +396,9 @@ _END;
 			//echo '<img src="'.$g.'" alt="HTML5 Icon" style="width:128px;height:128px">';
 echo <<<_END
 
-
+<figure>
 <div class="column ml-2 mb-5 mt-2" style=float:left;padding:10 10 10 10>
-	<div class="card" style="width: 10rem;">
+	<div class="card" style="">
 	  <img class="card-img-top" height = "150" width = "42" src= $row[1] alt="HTML5 Icon">
 	  <div class="card-body">
 	    <form action="startScreen.php" method="post">
@@ -350,9 +409,8 @@ echo <<<_END
 		</form>
 	  </div>
 	</div>
-
-
 </div>
+</figure>
 _END;
 
 			}

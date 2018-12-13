@@ -9,23 +9,6 @@ $_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-if (isset($_POST['search']) && isset($_POST['enter']))
-=======
-//credits
- $query = "SELECT * from customer where userName='$tmp' and password='$p'";
-	$result = $conn->query($query);
-	while ($row = $result->fetch_assoc()) {
-			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
-			$ti=$row['id'];
-			$tcustcre=$row['credits'];
-			}
-	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-
-
->>>>>>> c8a525e4cbf284574e895f12931afb21d5f4f8ba
 
 //search
 echo <<<_END
@@ -201,8 +184,8 @@ div#columns:hover figure:not(:hover) {
 		    </ul>
 		  </div>
 	</nav>
-		   <div class="container-fluid col-5 search" style="position: fixed; left: 0">
-		   	<form class="" method="post">
+		   <div class="container-fluid col-5 search ml-5" style="position: fixed; left: 0">
+		   	<form class="ml-5" method="post">
 			      <input type="text" name="enter" class="searchTerm" placeholder="What are you looking for?">
 			      <button type="submit" name="search" class="searchButton">
 			        <i class="fa fa-search"></i>
@@ -212,7 +195,6 @@ div#columns:hover figure:not(:hover) {
 	<div id="columns" class="row">
 		<?php 
 		if (isset($_POST['search']) && isset($_POST['enter']))
->>>>>>> 462ecd0b1e0c7f4f8d69ae87acbaa6fb785ec670
 {
 	$t=array();
 	$q=array();
@@ -333,58 +315,7 @@ $query = "SELECT * FROM music";
 			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
 			}	
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item">
-		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php"><?= $tmp ?>'s Wall</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
-		      </li>   
-		      <li class="nav-item"> 
-			      <a class="nav-link" href="search.php">Search</a>
-			  </li>
-		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
-					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
-			  </form>
-		        <li class="nav-item" style="position: absolute; right: 0">
-		      	<div>
-		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
-		      	</div>
-		      </li>
-		       <li class="nav-item mr-5" style="position: absolute; right: 0">
-		      	<div class="dropdown mr-5">
-		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
-		      		</button>
-		      		<div class="dropdown-menu">
-					    <a class="dropdown-item" href="cart.php">Cart</a>
-					    <a class="dropdown-item" href="ItemsBought.php">Purchases</a>
-					    <a class="dropdown-item" href="ImageTest.php">Upload</a>
-					    <div class="dropdown-divider"></div>
-					    <a class="dropdown-item" href="logout.php">Logout</a>
-					</div>
-		      	</div>
-		      </li>
-		    </ul>
-		  </div>
-	</nav>
-	<div class="container-fluid">
-		<form action="" method="post">
-			<input class="mt-2" type="search" name="enter">
-			<type="label" name="searchby">
-			<button class="btn btn-outline-success" type="submit" name="search">Search</button>
-		</form>
-=======
-
->>>>>>> c8a525e4cbf284574e895f12931afb21d5f4f8ba
 		?>
->>>>>>> 462ecd0b1e0c7f4f8d69ae87acbaa6fb785ec670
 	</div>
 </body>
 <footer>

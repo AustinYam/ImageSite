@@ -190,7 +190,7 @@ $query = "SELECT * FROM music";
 		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php">Upload</a>
+		        <a class="nav-link" href="ImageTest.php"><?= $tmp ?>'s Wall</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>

@@ -9,6 +9,11 @@ $_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+if (isset($_POST['search']) && isset($_POST['enter']))
+=======
 //credits
  $query = "SELECT * from customer where userName='$tmp' and password='$p'";
 	$result = $conn->query($query);
@@ -20,10 +25,12 @@ $p= $_SESSION["pass"];
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 
 
+>>>>>>> c8a525e4cbf284574e895f12931afb21d5f4f8ba
 
 //search
 echo <<<_END
 _END;
+
 
 			
 ?>
@@ -85,6 +92,69 @@ _END;
 	  transform: translate(-50%, -50%);
 	}
 
+	@font-face{font-family:'Calluna';
+ src:url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/callunasansregular-webfont.woff') format('woff');
+}
+body {
+	background: url(//subtlepatterns.com/patterns/scribble_light.png);
+  font-family: Calluna, Arial, sans-serif;
+  min-height: 1000px;
+}
+#columns {
+	column-width: 320px;
+	column-gap: 15px;
+  width: 90%;
+	max-width: 1100px;
+	margin: 50px auto;
+}
+
+div#columns figure {
+	background: #fefefe;
+	border: 2px solid #fcfcfc;
+	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+	margin: 0 2px 15px;
+	padding: 15px;
+	padding-bottom: 10px;
+	transition: opacity .4s ease-in-out;
+  display: inline-block;
+  column-break-inside: avoid;
+}
+
+div#columns figure img {
+	width: 100%; height: auto;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 15px;
+	margin-bottom: 5px;
+}
+
+div#columns figure figcaption {
+  font-size: .9rem;
+	color: #444;
+  line-height: 1.5;
+}
+
+div#columns small { 
+  font-size: 1rem;
+  float: right; 
+  text-transform: uppercase;
+  color: #aaa;
+} 
+
+div#columns small a { 
+  color: #666; 
+  text-decoration: none; 
+  transition: .4s color;
+}
+
+div#columns:hover figure:not(:hover) {
+	opacity: 0.4;
+}
+
+@media screen and (max-width: 750px) { 
+  #columns { column-gap: 0px; }
+  #columns figure { width: 100%; }
+}
+
 	</style>
 </head>
 <body>
@@ -132,16 +202,17 @@ _END;
 		  </div>
 	</nav>
 		   <div class="container-fluid col-5 search" style="position: fixed; left: 0">
-		   	<form method="post">
+		   	<form class="" method="post">
 			      <input type="text" name="enter" class="searchTerm" placeholder="What are you looking for?">
 			      <button type="submit" name="search" class="searchButton">
 			        <i class="fa fa-search"></i>
 			     </button>
 		     </form>
 		   </div>
-	<div class="row">
+	<div id="columns" class="row">
 		<?php 
 		if (isset($_POST['search']) && isset($_POST['enter']))
+>>>>>>> 462ecd0b1e0c7f4f8d69ae87acbaa6fb785ec670
 {
 	$t=array();
 	$q=array();
@@ -150,11 +221,6 @@ _END;
 	$category = get_post($conn, 'enter');
 
 	$query = "SELECT * FROM transaction";
-
-	//echo $category;
-	echo "</br>";
-	$query = "SELECT * FROM transaction where customerID='$boughtid'";
-
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	$rows = $result->num_rows;
@@ -177,7 +243,7 @@ _END;
 	if(in_array($category, $t)!==false)
 	{
 
-	$query = "SELECT * FROM transaction WHERE category like '$category' and customerID='$boughtid'";
+	$query = "SELECT * FROM transaction WHERE category like '$category'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -186,7 +252,7 @@ _END;
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
 echo <<<_END
-
+<figure>
 <div class="card mt-5 ml-3">
 	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 	<div class="card-body">
@@ -206,6 +272,7 @@ echo <<<_END
 		</form>
 	  </div>
 </div>
+</figure>
 _END;
 			}		
 	}
@@ -216,11 +283,7 @@ _END;
 		//echo $category;
 		echo "</br>";
 		echo $val;
-
 	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) like LOWER('$category')";
-
-	echo "yes";
-	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) like LOWER('$category') and customerID='$boughtid'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -229,6 +292,7 @@ _END;
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
 echo <<<_END
+<figure>
 <div class="card mt-5 ml-3">
 	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 	<div class="card-body">
@@ -248,12 +312,12 @@ echo <<<_END
 		</form>
 	  </div>
 </div>
+</figure>
 _END;
 			}		
 	}
 			
 	}
-	
 $query = "SELECT * FROM music";
 		$result = $conn->query($query);
 		if (!$result) die ("Database access failed: " . $conn->error);
@@ -263,15 +327,64 @@ $query = "SELECT * FROM music";
 		{
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
-			}
-		
+			}		
 			$result->close();
 			$conn->close();
 			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
 			}	
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item">
+		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="ImageTest.php"><?= $tmp ?>'s Wall</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
+		      </li>   
+		      <li class="nav-item"> 
+			      <a class="nav-link" href="search.php">Search</a>
+			  </li>
+		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
+					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
+			  </form>
+		        <li class="nav-item" style="position: absolute; right: 0">
+		      	<div>
+		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
+		      	</div>
+		      </li>
+		       <li class="nav-item mr-5" style="position: absolute; right: 0">
+		      	<div class="dropdown mr-5">
+		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
+		      		</button>
+		      		<div class="dropdown-menu">
+					    <a class="dropdown-item" href="cart.php">Cart</a>
+					    <a class="dropdown-item" href="ItemsBought.php">Purchases</a>
+					    <a class="dropdown-item" href="ImageTest.php">Upload</a>
+					    <div class="dropdown-divider"></div>
+					    <a class="dropdown-item" href="logout.php">Logout</a>
+					</div>
+		      	</div>
+		      </li>
+		    </ul>
+		  </div>
+	</nav>
+	<div class="container-fluid">
+		<form action="" method="post">
+			<input class="mt-2" type="search" name="enter">
+			<type="label" name="searchby">
+			<button class="btn btn-outline-success" type="submit" name="search">Search</button>
+		</form>
+=======
 
+>>>>>>> c8a525e4cbf284574e895f12931afb21d5f4f8ba
 		?>
+>>>>>>> 462ecd0b1e0c7f4f8d69ae87acbaa6fb785ec670
 	</div>
 </body>
 <footer>

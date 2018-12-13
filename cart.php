@@ -25,7 +25,7 @@ $buyid= $_SESSION["tmpid"];
 //delete from cart
 if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && isset($_POST['size']) && isset($_POST['source']) && isset($_POST['category']) && isset($_POST['credits']))
 {
-	echo "hi";
+	//echo "hi";
 	$id = get_post($conn, 'id');
 	$res = get_post($conn, 'res');
 	$size = get_post($conn, 'size');
@@ -53,7 +53,7 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 		
 		while ($row = $result->fetch_assoc()) {
 		$s[]=$row['id'];
-		print_r ($s);
+		//print_r ($s);
 		$ts=$row['source'];
 			$newts[]=substr_replace($ts, '.jpg',-7);
 		$tc[] = $row['category'];
@@ -177,12 +177,18 @@ _END;
 		{
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
+			$g[]=$row[3];
+			foreach($g as $value)
+		{
+			$value=substr($value, 0, -7);
+			
+		}
 echo <<<_END
 <div class="column ml-2 mb-5" style=float:left;padding:10 10 10 10>
 	<div class="card" style="width: 15rem;">
 	  <img class="card-img-top" src= $row[3] alt="HTML5 Icon">
 	  <div class="card-body">
-	    <h5 class="card-title">$row[3]</h5>
+	    <h5 class="card-title">$value</h5>
 	    <p class="card-text">id: $row[0]</p>
 	    <p class="card-text">resolution: $row[1]</p>
 	    <p class="card-text">size: $row[2]</p>

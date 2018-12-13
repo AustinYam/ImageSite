@@ -53,6 +53,7 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 		$w=$row['category'];
 		$x=$row['credits'];
 	}
+	
 	 $query ="INSERT INTO cart VALUES('$s','$t','$u','$v','$w','$x')";
 		$result = $conn->query($query);
 		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";

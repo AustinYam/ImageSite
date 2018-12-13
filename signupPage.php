@@ -3,10 +3,10 @@ require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
 
-echo <<<_END
-_END;
  //create customer (html by professor)
+
  if ( isset($_POST['lastName']) &&isset($_POST['firstName']) && isset($_POST['userName']) &&isset($_POST['password']))
+
  {
 		$lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
 		$firstName = mysqli_real_escape_string($conn, $_POST['firstName']);

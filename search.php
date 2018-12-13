@@ -43,7 +43,7 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 			
 		}
 		$test[]=$value;
-		echo $value;
+		//echo $value;
 		//$val=$value;
 		
 		$t[]=$row['category'];

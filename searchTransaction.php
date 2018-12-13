@@ -25,7 +25,6 @@ $p= $_SESSION["pass"];
 echo <<<_END
 _END;
 
-
 			
 ?>
 
@@ -151,6 +150,11 @@ _END;
 	$category = get_post($conn, 'enter');
 
 	$query = "SELECT * FROM transaction";
+
+	//echo $category;
+	echo "</br>";
+	$query = "SELECT * FROM transaction where customerID='$boughtid'";
+
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	$rows = $result->num_rows;
@@ -173,7 +177,7 @@ _END;
 	if(in_array($category, $t)!==false)
 	{
 
-	$query = "SELECT * FROM transaction WHERE category like '$category'";
+	$query = "SELECT * FROM transaction WHERE category like '$category' and customerID='$boughtid'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -212,7 +216,11 @@ _END;
 		//echo $category;
 		echo "</br>";
 		echo $val;
+
 	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) like LOWER('$category')";
+
+	echo "yes";
+	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) like LOWER('$category') and customerID='$boughtid'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -245,6 +253,7 @@ _END;
 	}
 			
 	}
+	
 $query = "SELECT * FROM music";
 		$result = $conn->query($query);
 		if (!$result) die ("Database access failed: " . $conn->error);
@@ -254,11 +263,13 @@ $query = "SELECT * FROM music";
 		{
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
-			}		
+			}
+		
 			$result->close();
 			$conn->close();
 			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);
 			}	
+
 
 		?>
 	</div>

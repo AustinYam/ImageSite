@@ -1,9 +1,13 @@
 <?php
+/*
+Image page (Wall) 
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
 
-	//search 
 require_once('authenticate.php');
 
 $_SESSION["tmpid"]="";
@@ -324,6 +328,7 @@ div#columns:hover figure:not(:hover) {
 		</div>
 		<div id="columns">
 			<?php
+			//display images on wall
 			$query = "SELECT * FROM music";
 		$result = $conn->query($query);
 		if (!$result) die ("Database access failed: " . $conn->error);

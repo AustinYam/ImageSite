@@ -1,4 +1,9 @@
 <?php
+/*
+search in the images already purchased
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
@@ -193,6 +198,8 @@ div#columns:hover figure:not(:hover) {
 		   </div>
 	<div id="columns" class="row">
 		<?php 
+		
+		//Search by category then by name
 		$boughtid= $_SESSION["tmpid"];
 		if (isset($_POST['search']) && isset($_POST['enter']))
 {

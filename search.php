@@ -1,4 +1,9 @@
 <?php
+/*
+search images by name or category
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
@@ -189,6 +194,8 @@ div#columns:hover figure:not(:hover) {
 		   </div>
 	<div id="columns" class="row">
 	<?php
+	
+	//search by category then by name
 if (isset($_POST['search']) && isset($_POST['enter']))
 {
 	$t=array();

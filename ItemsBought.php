@@ -1,4 +1,9 @@
 <?php
+/*
+items bought (history)
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
@@ -7,7 +12,7 @@ require_once('authenticate.php');
 
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
-
+//delete from history
 if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 {
 	//echo"kjjh";
@@ -16,6 +21,7 @@ if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 	$result = $conn->query($query);
 	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
 	}
+	//download to device
 	if (isset($_POST['download']) && isset($_POST['orderNumber']))
 {
 	$id = get_post($conn, 'orderNumber');
@@ -104,6 +110,8 @@ header('Pragma: no-cache');
 		</div>
 	<div class="row ml-2">
 		<?php 
+		//Display purchased images
+		
 		$boughtid= $_SESSION["tmpid"];
 
 

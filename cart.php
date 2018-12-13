@@ -1,4 +1,9 @@
 <?php
+/*
+shopping cart
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 
@@ -22,7 +27,6 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 //delete from cart
 if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && isset($_POST['size']) && isset($_POST['source']) && isset($_POST['category']) && isset($_POST['credits']))
 {
-	//echo "hi";
 	$id = get_post($conn, 'id');
 	$res = get_post($conn, 'res');
 	$size = get_post($conn, 'size');
@@ -50,7 +54,6 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 		
 		while ($row = $result->fetch_assoc()) {
 		$s[]=$row['id'];
-		//print_r ($s);
 		$ts=$row['source'];
 			$newts[]=substr_replace($ts, '.jpg',-7);
 		$tc[] = $row['category'];
@@ -81,7 +84,6 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 			//}
 }
 
-	
 	$query = "DELETE FROM cart";
 	$result = $conn->query($query);
 	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
@@ -153,6 +155,7 @@ _END;
 	</div>
 	<div class="row">
 		<?php
+		//Display Cart
 			 $query ="SELECT * FROM cart";
 		$result = $conn->query($query);
 		if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";

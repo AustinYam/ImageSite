@@ -1,4 +1,9 @@
 <?php
+/*
+login page
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 session_start();
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);

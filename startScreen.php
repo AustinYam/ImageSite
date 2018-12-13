@@ -1,4 +1,10 @@
 <?php
+
+/*
+start screen that shows the trending images and latest uploads
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
@@ -310,6 +316,8 @@ div#columns:hover figure:not(:hover) {
 	<h2 class="ml-2 mt-3">Trending</h2>
 	<div id="columns" class="row">
 		<?php
+		
+		//here i display images that were purchased the most during this week. (would be useful for bussiness)
 			$query = "select * from transaction where transactionDate between '2018-12-11' and '2018-12-12'  group by source order by count(*) desc";
 	$result = $conn->query($query);
 	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";

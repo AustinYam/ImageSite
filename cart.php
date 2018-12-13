@@ -57,10 +57,6 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 		$tcred[]=$row['credits'];
 	}
 	$sum = array_sum($tcred);
-	
-echo <<<_END
-<h2 class="ml-2">Your Total: $sum</h2>
-_END;
 		if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	$query = "SELECT * from customer where id='$buyid'";
 	$result = $conn->query($query);
@@ -218,7 +214,6 @@ _END;
 			}	
 		?>
 	</div>
-	<h2 class="ml-2">Your Total:</h2>
 </body>
 <footer>
 

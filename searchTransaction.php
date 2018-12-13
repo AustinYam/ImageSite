@@ -8,7 +8,6 @@ $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 $boughtid= $_SESSION["tmpid"];
 
-
 if (isset($_POST['search']) && isset($_POST['enter']))
 {
 	$t=array();
@@ -158,7 +157,7 @@ $query = "SELECT * FROM music";
 		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php">Upload</a>
+		        <a class="nav-link" href="ImageTest.php"><?= $tmp ?>'s Wall</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>

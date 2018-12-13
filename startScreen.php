@@ -37,8 +37,8 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 	if (isset($_POST['choose'])&& isset($_POST['category']) && isset($_POST['source']) )
 {
 	$ca = mysqli_real_escape_string($conn, $_POST['category']);
-	echo $ca;
-	echo "</br>";
+	//echo $ca;
+	//echo "</br>";
 	$source = mysqli_real_escape_string($conn, $_POST['source']);
 	//echo $source;
 	

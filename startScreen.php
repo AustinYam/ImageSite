@@ -271,7 +271,7 @@ div#columns:hover figure:not(:hover) {
 <body>
 	<!--NAVBAR-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<h2 class="display-5"><a class="navbar-brand" href="startScreen.php">Welcome to Giggity</a></h2>
+  		<h2 class="display-5"><a class="navbar-brand" href="startScreen.php">Welcome to Aurora</a></h2>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -318,7 +318,7 @@ div#columns:hover figure:not(:hover) {
 		<?php
 		
 		//here i display images that were purchased the most during this week. (would be useful for bussiness)
-			$query = "select * from transaction where transactionDate between '2018-12-11' and '2018-12-12'  group by source order by count(*) desc";
+			$query = "select * from transaction where transactionDate between '2018-12-12' and '2018-12-13'  group by source order by count(*) desc";
 	$result = $conn->query($query);
 	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";
 		while ($row = $result->fetch_assoc()) {

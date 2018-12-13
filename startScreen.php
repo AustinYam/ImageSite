@@ -199,17 +199,6 @@ _END;
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
 
-	<style type="text/css">
-		input[type="file"] { 
-		  z-index: -1;
-		  position: absolute;
-		  opacity: 0;
-		}
-
-		input:focus + label {
-		  outline: 2px solid;
-		}
-	</style>
 </head>
 <body>
 	<!--NAVBAR-->
@@ -294,7 +283,7 @@ echo <<<_END
 
 <div class="column ml-2 mb-5 mt-2" style=float:left;padding:10 10 10 10>
 	<div class="card" style="width: 10rem;">
-	  <img class="card-img-top" height = "150" width = "42" src= $row[1] alt="HTML5 Icon">
+	  <img class="card-img-top"  src= $row[1] alt="HTML5 Icon">
 	  <div class="card-body">
 	    <form action="startScreen.php" method="post">
 			<input type="hidden" name="choose" value="yes">

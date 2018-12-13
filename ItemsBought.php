@@ -33,15 +33,25 @@ if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 		$q= $row['orderNumber'];
 		$t=$row['customerID'];
 		$u=$row['imageID'];
-		$w=$row['source'];
+		$w[]=$row['source'];
 		$v=$row['transactionDate'];
 }
 if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-header("Content-type: ".$type);
-header('Content-Disposition: attachment; filename="'.$row[3].'"');
-header("Content-Transfer-Encoding: binary"); 
+header('Content-Description: File Transfer');
+header('Content-Type: application/octet-stream');
+foreach($w as $neww)
+		{
+header('Content-Disposition: attachment; filename="'.$neww.'"');
+		}
+header('Content-Transfer-Encoding: binary');
 header('Expires: 0');
-header('Pragma: no-cache');
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Pragma: public');
+//header('Content-Length: ' . filesize($file_url)); //Absolute URL
+ob_clean();
+flush();
+//readfile($file_url); //Absolute URL
+exit();
 	}
 
 

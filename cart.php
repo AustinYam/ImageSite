@@ -8,16 +8,19 @@ $p= $_SESSION["pass"];
 
 if ($conn->connect_error) die($conn->connect_error);
 $buyid= $_SESSION["tmpid"];
-/*
-if (isset($_POST['delete']) && isset($_POST['id']))
-{
-	echo"kjjh";
-	$id = get_post($conn, 'id');
-	$query = "DELETE FROM cart WHERE id='$id'";
+
+
+//credits
+ $query = "SELECT * from customer where userName='$tmp' and password='$p'";
 	$result = $conn->query($query);
-	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
-	}
-	*/
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			$ti=$row['id'];
+			$tcustcre=$row['credits'];
+			}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+
+
 
 //delete from cart
 if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && isset($_POST['size']) && isset($_POST['source']) && isset($_POST['category']) && isset($_POST['credits']))
@@ -101,7 +104,7 @@ _END;
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="startScreen">Giggity</a>
+  		<h2 class="display-5"><a class="navbar-brand" href="startScreen.php">Welcome to Giggity</a></h2>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -118,11 +121,8 @@ _END;
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>   
 		      <li class="nav-item"> 
-			      <a class="nav-link" href="search.php">Search</a>
+			      <a class="nav-link" href="searchTransaction.php">Search</a>
 			  </li>
-		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
-					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
-			  </form>
 			  <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>
 		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
@@ -133,6 +133,8 @@ _END;
 		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
 		      		</button>
 		      		<div class="dropdown-menu">
+		      			<a class="dropdown-item" href="#">Wallet: $<?= $tcustcre ?></a>
+					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item" href="cart.php">Cart</a>
 					    <a class="dropdown-item" href="ItemsBought.php">Purchases</a>
 					    <a class="dropdown-item" href="ImageTest.php">Upload</a>

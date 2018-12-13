@@ -6,14 +6,13 @@ if ($conn->connect_error) die($conn->connect_error);
 echo <<<_END
 _END;
  //create customer (html by professor)
- if (isset($_POST['lastName']) &&isset($_POST['firstName']) && isset($_POST['userName']) &&isset($_POST['password']) &&isset($_POST['userType']))
+ if ( isset($_POST['lastName']) &&isset($_POST['firstName']) && isset($_POST['userName']) &&isset($_POST['password']))
  {
 		$lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
 		$firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
 		$userName = mysqli_real_escape_string($conn, $_POST['userName']);
 		$password = mysqli_real_escape_string($conn, $_POST['password']);
-		$userType = mysqli_real_escape_string($conn, $_POST['userType']);
-		$query = "INSERT INTO customer VALUES(NULL,'$lastName','$firstName','$userName',SHA1('$password'),'$userType',50)";
+		$query = "INSERT INTO customer VALUES(NULL,'$lastName','$firstName','$userName',SHA1('$password'),'',50)";
 	#	$query = "INSERT INTO customer VALUES(NULL,'miller','james','charlie123','123','admin')";
 		$result = $conn->query($query);
 		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
@@ -45,14 +44,12 @@ _END;
 						<p>Password</p> <input type="password" name="password">
 					</row>
 					<row>
-						<p>FirstName</p> <input type="text" name="firstName">
+						<p>First Name</p> <input type="text" name="firstName">
 					</row>
 					<row>
-						<p>lastName</p> <input type="text" name="lastName">
+						<p>Last Name</p> <input type="text" name="lastName">
 					</row>
-					<row>
-						<p>User Type</p> <input type="Text" name="userType">
-					</row>
+					
 				<button class="btn waves-effect waves-light" type="submit" value="ADD RECORD">Register</button>
 				</form>
 			</div>

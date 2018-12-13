@@ -9,9 +9,16 @@ $_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 
-//search
-echo <<<_END
-_END;
+//credits
+ $query = "SELECT * from customer where userName='$tmp' and password='$p'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			$ti=$row['id'];
+			$tcustcre=$row['credits'];
+			}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+
 
 if (isset($_POST['search']) && isset($_POST['enter']))
 {
@@ -172,7 +179,7 @@ $query = "SELECT * FROM music";
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="startScreen">Giggity</a>
+  		<h2 class="display-5"><a class="navbar-brand" href="startScreen.php">Welcome to Giggity</a></h2>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -189,12 +196,9 @@ $query = "SELECT * FROM music";
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>   
 		      <li class="nav-item"> 
-			      <a class="nav-link" href="search.php">Search</a>
+			      <a class="nav-link" href="searchTransaction.php">Search</a>
 			  </li>
-		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
-					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
-			  </form>
-		        <li class="nav-item" style="position: absolute; right: 0">
+			  <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>
 		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
 		      	</div>
@@ -204,6 +208,8 @@ $query = "SELECT * FROM music";
 		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
 		      		</button>
 		      		<div class="dropdown-menu">
+		      			<a class="dropdown-item" href="#">Wallet: $<?= $tcustcre ?></a>
+					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item" href="cart.php">Cart</a>
 					    <a class="dropdown-item" href="ItemsBought.php">Purchases</a>
 					    <a class="dropdown-item" href="ImageTest.php">Upload</a>

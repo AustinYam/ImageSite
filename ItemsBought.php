@@ -212,6 +212,11 @@ echo <<<_END
 	    <p class="card-text">Image ID: $row[2]</p>
 		<p class="card-text">Category: $row[4]</p>
 	    <p class="card-text">Transaction Date: $row[5]</p>
+	     <form class = "mb-2" action="itemsBought.php" method="post">
+			<input type="hidden" name="download" value="yes">
+			<input type="hidden" name="orderNumber" value="$row[0]">
+			<button class="btn btn-outline-success" type="submit">Download</button>
+		</form>
 	    <form action="itemsBought.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="orderNumber" value="$row[0]">
@@ -220,7 +225,7 @@ echo <<<_END
 			<input type="hidden" name="source" value="$row[3]">
 			<input type="hidden" name="category" value="$row[4]">
 			<input type="hidden" name="transactionDate" value="$row[5]">
-			<button class="btn btn-outline-success" type="submit">Return</button>
+			<button class="btn btn-outline-danger btn-sm" type="submit">Return</button>
 		</form>
 	  </div>
 </div>

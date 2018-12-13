@@ -313,7 +313,7 @@ div#columns:hover figure:not(:hover) {
 		    </ul>
 		  </div>
 	</nav>
-	<h2 class="ml-2 mt-3">Trending</h2>
+	<h2 class="ml-5 mt-3" style="position: center">Trending</h2>
 	<div id="columns" class="row">
 		<?php
 		
@@ -372,7 +372,7 @@ _END;
 		?>
 		
 	</div>
-	<h2 class="ml-2">Latest Uploads</h2>
+	<h2 class="ml-5">Latest Uploads</h2>
 	<div id="columns" class="row">
 		<?php
 		//show latest uploads on main page

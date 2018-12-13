@@ -1,15 +1,11 @@
 <?php
-/*
-search in the images already purchased
-backend by Arselan (php libraries used from php website).
-Front end by Austin
-*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
 
 require_once('authenticate.php');
 
+$_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 
@@ -157,7 +153,7 @@ div#columns:hover figure:not(:hover) {
 		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php">Share</a>
+		        <a class="nav-link" href="ImageTest.php">Upload</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
@@ -198,9 +194,6 @@ div#columns:hover figure:not(:hover) {
 		   </div>
 	<div id="columns" class="row">
 		<?php 
-		
-		//Search by category then by name
-		$boughtid= $_SESSION["tmpid"];
 		if (isset($_POST['search']) && isset($_POST['enter']))
 {
 	$t=array();
@@ -209,7 +202,7 @@ div#columns:hover figure:not(:hover) {
 	$val="";
 	$category = get_post($conn, 'enter');
 
-	$query = "SELECT * FROM transaction where customerID='$boughtid'";
+	$query = "SELECT * FROM transaction";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	$rows = $result->num_rows;
@@ -232,7 +225,7 @@ div#columns:hover figure:not(:hover) {
 	if(in_array($category, $t)!==false)
 	{
 
-	$query = "SELECT * FROM transaction WHERE category like '$category' and customerID='$boughtid'";
+	$query = "SELECT * FROM transaction WHERE category like '$category'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -249,16 +242,14 @@ echo <<<_END
 	    <p class="card-text">Order Number: $row[0]</p>
 	    <p class="card-text">Customer ID: $row[1]</p>
 	    <p class="card-text">Image ID: $row[2]</p>
-		<p class="card-text">Category: $row[4]</p>
-	    <p class="card-text">Transaction Date: $row[5]</p>
+	    <p class="card-text">Transaction Date: $row[4]</p>
 	    <form action="itemsBought.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="orderNumber" value="$row[0]">
 			<input type="hidden" name="customerID" value="$row[1]">
 			<input type="hidden" name="imageID" value="$row[2]">
 			<input type="hidden" name="source" value="$row[3]">
-			<input type="hidden" name="category" value="$row[4]">
-			<input type="hidden" name="transactionDate" value="$row[5]">
+			<input type="hidden" name="transactionDate" value="$row[4]">
 			<button class="btn btn-outline-success" type="submit">Return</button>
 		</form>
 	  </div>
@@ -274,7 +265,7 @@ _END;
 		//echo $category;
 		echo "</br>";
 		echo $val;
-	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) like LOWER('$category') and customerID='$boughtid'";
+	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) = LOWER('$category')";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -291,16 +282,14 @@ echo <<<_END
 	    <p class="card-text">Order Number: $row[0]</p>
 	    <p class="card-text">Customer ID: $row[1]</p>
 	    <p class="card-text">Image ID: $row[2]</p>
-		<p class="card-text">Category: $row[4]</p>
-	    <p class="card-text">Transaction Date: $row[5]</p>
+	    <p class="card-text">Transaction Date: $row[4]</p>
 	    <form action="itemsBought.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="orderNumber" value="$row[0]">
 			<input type="hidden" name="customerID" value="$row[1]">
 			<input type="hidden" name="imageID" value="$row[2]">
 			<input type="hidden" name="source" value="$row[3]">
-			<input type="hidden" name="category" value="$row[4]">
-			<input type="hidden" name="transactionDate" value="$row[5]">
+			<input type="hidden" name="transactionDate" value="$row[4]">
 			<button class="btn btn-outline-success" type="submit">Return</button>
 		</form>
 	  </div>

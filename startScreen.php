@@ -201,7 +201,6 @@ _END;
 
 </head>
 <body>
-	<!--NAVBAR-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
   		<h2 class="display-5"><a class="navbar-brand" href="startScreen.php">Welcome to Giggity</a></h2>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

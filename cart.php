@@ -57,7 +57,7 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 		$tcred[]=$row['credits'];
 	}
 	$sum = array_sum($tcred);
-	echo $sum;
+	
 echo <<<_END
 <h2 class="ml-2">Your Total: $sum</h2>
 _END;

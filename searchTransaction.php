@@ -265,7 +265,7 @@ _END;
 		//echo $category;
 		echo "</br>";
 		echo $val;
-	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) like LOWER('$category')";
+	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) = LOWER('$category')";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;

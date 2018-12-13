@@ -1,4 +1,9 @@
 <?php
+/*
+shopping cart
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 
@@ -25,7 +30,6 @@ $buyid= $_SESSION["tmpid"];
 //delete from cart
 if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && isset($_POST['size']) && isset($_POST['source']) && isset($_POST['category']) && isset($_POST['credits']))
 {
-	//echo "hi";
 	$id = get_post($conn, 'id');
 	$res = get_post($conn, 'res');
 	$size = get_post($conn, 'size');
@@ -53,7 +57,6 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 		
 		while ($row = $result->fetch_assoc()) {
 		$s[]=$row['id'];
-		//print_r ($s);
 		$ts=$row['source'];
 			$newts[]=substr_replace($ts, '.jpg',-7);
 		$tc[] = $row['category'];
@@ -84,7 +87,6 @@ if (isset($_POST['delete']) && isset($_POST['id']) && isset($_POST['res']) && is
 			//}
 }
 
-	
 	$query = "DELETE FROM cart";
 	$result = $conn->query($query);
 	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
@@ -185,7 +187,7 @@ div#columns:hover figure:not(:hover) {
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>   
 		      <li class="nav-item"> 
-			      <a class="nav-link" href="searchTransaction.php">Search</a>
+			      <a class="nav-link" href="search.php">Search</a>
 			  </li>
 			  <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>
@@ -219,6 +221,7 @@ div#columns:hover figure:not(:hover) {
 	</div>
 	<div id="columns" class="row">
 		<?php
+		//Display Cart
 			 $query ="SELECT * FROM cart";
 		$result = $conn->query($query);
 		if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";

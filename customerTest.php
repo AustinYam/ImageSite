@@ -1,4 +1,9 @@
 <?php
+/*
+customers data
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);

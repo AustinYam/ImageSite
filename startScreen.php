@@ -1,4 +1,10 @@
 <?php
+
+/*
+start screen that shows the trending images and latest uploads
+backend by Arselan (php libraries used from php website).
+Front end by Austin
+*/
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
@@ -37,8 +43,8 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 	if (isset($_POST['choose'])&& isset($_POST['category']) && isset($_POST['source']) )
 {
 	$ca = mysqli_real_escape_string($conn, $_POST['category']);
-	echo $ca;
-	echo "</br>";
+	//echo $ca;
+	//echo "</br>";
 	$source = mysqli_real_escape_string($conn, $_POST['source']);
 	//echo $source;
 	
@@ -282,7 +288,7 @@ div#columns:hover figure:not(:hover) {
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>   
 		      <li class="nav-item"> 
-			      <a class="nav-link" href="searchTransaction.php">Search</a>
+			      <a class="nav-link" href="search.php">Search</a>
 			  </li>
 			  <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>
@@ -310,6 +316,8 @@ div#columns:hover figure:not(:hover) {
 	<h2 class="ml-2 mt-3">Trending</h2>
 	<div id="columns" class="row">
 		<?php
+		
+		//here i display images that were purchased the most during this week. (would be useful for bussiness)
 			$query = "select * from transaction where transactionDate between '2018-12-11' and '2018-12-12'  group by source order by count(*) desc";
 	$result = $conn->query($query);
 	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";

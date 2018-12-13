@@ -286,7 +286,7 @@ div#columns:hover figure:not(:hover) {
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>   
 		      <li class="nav-item"> 
-			      <a class="nav-link" href="searchTransaction.php">Search</a>
+			      <a class="nav-link" href="search.php">Search</a>
 			  </li>
 			  <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>

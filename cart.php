@@ -118,7 +118,7 @@ _END;
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>   
 		      <li class="nav-item"> 
-			      <a class="nav-link" href="searchTransaction.php">Search</a>
+			      <a class="nav-link" href="search.php">Search</a>
 			  </li>
 		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
 					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>

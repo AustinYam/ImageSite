@@ -375,6 +375,7 @@ _END;
 	<h2 class="ml-2">Latest Uploads</h2>
 	<div id="columns" class="row">
 		<?php
+		//show latest uploads on main page
 			$query = "select * from music order by postDate desc";
 	$result = $conn->query($query);
 	if (!$result) echo "Select failed: $query<br>" . $conn->error . "<br><br>";

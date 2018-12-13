@@ -314,12 +314,12 @@ div#columns:hover figure:not(:hover) {
 	<div class="container-fluid ml-5">
 		<div class="row">
 			<form method="post" action="" enctype='multipart/form-data'>
-				<label class="btn btn-outline-success btn-file mt-2">
+				<label class="btn btn-success btn-file mt-4">
 				    Select Image<input type="file" id="file-upload" name="file">
 				</label>
 				<div id="file-upload-filename"></div><br>
 				Category<input class="ml-2" type="text" name="category">
-				<button class="btn btn-outline-success" type='submit' name='image_upload'>Upload</button>
+				<button class="btn btn-success" type='submit' name='image_upload'>Upload</button>
 			</form>
 		</div>
 		<div id="columns">

@@ -2,6 +2,11 @@
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
+require_once('authenticate.php');
+
+$tmp= $_SESSION["user"];
+$p= $_SESSION["pass"];
+$boughtid= $_SESSION["tmpid"];
 
 echo <<<_END
 <form action="startScreen.php" method="post">
@@ -30,7 +35,7 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 	$category = get_post($conn, 'enter');
 	//echo $category;
 	echo "</br>";
-	$query = "SELECT * FROM transaction";
+	$query = "SELECT * FROM transaction where customerID='$boughtid'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	$rows = $result->num_rows;
@@ -58,7 +63,7 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 	if(in_array($category, $t)!==false)
 	{
 
-	$query = "SELECT * FROM transaction WHERE category like '$category'";
+	$query = "SELECT * FROM transaction WHERE category like '$category' and customerID='$boughtid'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -98,7 +103,7 @@ _END;
 		echo "</br>";
 		echo $val;
 	echo "yes";
-	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) like LOWER('$category')";
+	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) like LOWER('$category') and customerID='$boughtid'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -132,6 +137,7 @@ _END;
 	}
 			
 	}
+	
 $query = "SELECT * FROM music";
 		$result = $conn->query($query);
 		if (!$result) die ("Database access failed: " . $conn->error);
@@ -141,7 +147,8 @@ $query = "SELECT * FROM music";
 		{
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
-			}		
+			}
+		
 			$result->close();
 			$conn->close();
 			function get_post($conn, $var){return $conn->real_escape_string($_POST[$var]);

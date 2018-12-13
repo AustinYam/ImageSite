@@ -95,6 +95,13 @@ header('Pragma: no-cache');
 		  </div>
 	</nav>
 	<h2 class="ml-2">Purchased Images</h2>
+	<div class="container-fluid ml-5">
+		<div class="row">
+			<form action="searchTransaction.php" method="post">
+				<input type="hidden" name="choose" value="yes">
+				<button class="btn btn-outline-success mt-2" type="submit">Search Purchased Images</button>
+			</form>
+		</div>
 	<div class="row ml-2">
 		<?php 
 		$boughtid= $_SESSION["tmpid"];

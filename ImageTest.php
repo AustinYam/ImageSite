@@ -284,7 +284,7 @@ div#columns:hover figure:not(:hover) {
 		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php"><?= $tmp ?>'s Wall</a>
+		        <a class="nav-link" href="ImageTest.php">Share</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
@@ -368,15 +368,15 @@ echo <<<_END
 	    <p class="card-text">size: $row[2]</p>
 	    <p class="card-text">category: $row[4]</p>
 			    <p class="card-text">credits: $row[5]</p>
-	    <form class = "" action="ImageTest.php" method="post">
-			<input type="hidden" name="delete" value="yes">
-			<input type="hidden" name="id" value="$row[0]">
-			<button class = "btn btn-outline-success" type="submit">Delete</button>
-		</form>
-		<form class = "mt-2" action="ImageTest.php" method="post">
+		<form class = "mt-2 mb-2" action="ImageTest.php" method="post">
 			<input type="hidden" name="choose" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
 			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+		</form>
+		 <form class = "" action="ImageTest.php" method="post">
+			<input type="hidden" name="delete" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-danger btn-sm" type="submit">Delete</button>
 		</form>
 	  </div>
 	</div>

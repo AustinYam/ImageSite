@@ -5,7 +5,6 @@ if ($conn->connect_error) die($conn->connect_error);
 
 require_once('authenticate.php');
 
-$_SESSION["tmpid"]="";
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 
@@ -233,6 +232,7 @@ div#columns:hover figure:not(:hover) {
 		   </div>
 	<div id="columns" class="row">
 		<?php 
+		$boughtid= $_SESSION["tmpid"];
 		if (isset($_POST['search']) && isset($_POST['enter']))
 {
 	$t=array();
@@ -264,7 +264,7 @@ div#columns:hover figure:not(:hover) {
 	if(in_array($category, $t)!==false)
 	{
 
-	$query = "SELECT * FROM transaction WHERE category like '$category'";
+	$query = "SELECT * FROM transaction WHERE category like '$category' and customerID='$boughtid'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;
@@ -304,7 +304,7 @@ _END;
 		//echo $category;
 		echo "</br>";
 		echo $val;
-	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) = LOWER('$category')";
+	$query = "SELECT * from transaction where LOWER(substr(source from 1 for char_length(source)-4)) = LOWER('$category') and customerID='$boughtid'";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	
 	$rows = $result->num_rows;

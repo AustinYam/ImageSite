@@ -213,7 +213,7 @@ div#columns:hover figure:not(:hover) {
 		<form class="mt-5 mr-5"  action="cart.php" method="post">
 			<input type="hidden" name="id" value="">
 			<input type="hidden" name="buy" value="yes">
-			<button class="btn btn-success btn-lg mt-" type="submit">Purchase</button>
+			<button class="btn btn-success btn-lg mt-" onclick="myFunction()" type="submit">Purchase</button>
 		</form>
 	</div>
 	<div id="columns" class="row">
@@ -268,7 +268,7 @@ echo <<<_END
 			<input type="hidden" name="source" value="$row[3]">
 			<input type="hidden" name="category" value="$row[4]">
 			<input type="hidden" name="credits" value="$row[5]">
-			<button class = "btn btn-outline-success" type="submit">Remove</button>
+			<button class = "btn btn-outline-danger" type="submit">Remove</button>
 		</form>
 	  </div>
 	</div>
@@ -289,5 +289,11 @@ _END;
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script>
+function myFunction() {
+  alert("Purchase Successful!");
+}
+</script>
 </footer>
 </html>

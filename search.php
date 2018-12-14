@@ -363,7 +363,7 @@ _END;
 			
 		}
 echo <<<_END
-<figure>
+<figure class = "mt-5">
 <div class="card mt-5 ml-3">
 	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 	<div class="card-body">
@@ -374,7 +374,12 @@ echo <<<_END
 	    <p class="card-text">category: $row[4]</p>
 		<p class="card-text">credits: $row[5]</p>
 				<p class="card-text">source: $row[7]</p>
-	    <form action="search.php" method="post">
+		<form class = "mt-2 mb-2" action="search.php" method="post">
+			<input type="hidden" name="choose" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-success" onclick = "myFunction()" type="submit">Add to Cart</button>
+		</form>
+		 <form action="search.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
 			<input type="hidden" name="resolution" value="$row[1]">
@@ -383,12 +388,7 @@ echo <<<_END
 			<input type="hidden" name="category" value="$row[4]">
 			<input type="hidden" name="credits" value="$row[5]">
 			<input type="hidden" name="source" value="$row[7]">
-			<button class="btn btn-outline-success" type="submit">Delete</button>
-		</form>
-		<form class = "mt-2" action="ImageTest.php" method="post">
-			<input type="hidden" name="choose" value="yes">
-			<input type="hidden" name="id" value="$row[0]">
-			<button class = "btn btn-outline-success" onclick = "myFunction()" type="submit">Add to Cart</button>
+			<button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
 		</form>
 	  </div>
 </div>
@@ -423,7 +423,7 @@ while ($row = $result->fetch_assoc()) {
 			
 		}
 echo <<<_END
-<figure>
+<figure class = "mt-5">
 <div class="card mt-5 ml-3">
 	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 	<div class="card-body">
@@ -434,7 +434,12 @@ echo <<<_END
 	    <p class="card-text">category: $row[4]</p>
 		<p class="card-text">credits: $row[5]</p>
 		<p class="card-text">credits: $row[7]</p>
-	    <form action="search.php" method="post">
+		<form class = "mt-2 mb-2" action="search.php" method="post">
+			<input type="hidden" name="choose" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-success" onclick = "myFunction()" type="submit">Add to Cart</button>
+		</form>
+		<form action="search.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
 			<input type="hidden" name="resolution" value="$row[1]">
@@ -443,12 +448,7 @@ echo <<<_END
 			<input type="hidden" name="category" value="$row[4]">
 			<input type="hidden" name="credits" value="$row[5]">
 			<input type="hidden" name="source" value="$row[7]">
-			<button class="btn btn-outline-success" type="submit">Delete</button>
-		</form>
-		<form class = "mt-2" action="ImageTest.php" method="post">
-			<input type="hidden" name="choose" value="yes">
-			<input type="hidden" name="id" value="$row[0]">
-			<button class = "btn btn-outline-success" onclick = "myFunction()" type="submit">Add to Cart</button>
+			<button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
 		</form>
 	  </div>
 </div>

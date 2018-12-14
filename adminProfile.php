@@ -272,9 +272,8 @@ echo <<<_END
 	<div class="card" style="width: 15rem;">
 	  <img class="card-img-top" src= $row[3] alt="HTML5 Icon">
 	  <div class="card-body">
-	    <p class="card-text">id: $row[0]</p>
-	    <p class="card-text">customerID: $row[1]</p>
-	    <p class="card-text">imageID: $row[2]</p>
+	    <p class="card-text">Customer ID: $row[1]</p>
+	    <p class="card-text">Image ID: $row[2]</p>
 	  </div>
 	</div>
 </div>

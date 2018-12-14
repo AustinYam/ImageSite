@@ -8,6 +8,15 @@ require_once('authenticate.php');
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 
+//credits
+ $query = "SELECT * from customer where userName='$tmp' and password='$p'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			$ti=$row['id'];
+			$tcustcre=$row['credits'];
+			}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 
 if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 {
@@ -190,7 +199,7 @@ div#columns:hover figure:not(:hover) {
 		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php">Upload</a>
+		        <a class="nav-link" href="ImageTest.php">Share</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
@@ -214,6 +223,7 @@ div#columns:hover figure:not(:hover) {
 					    <a class="dropdown-item" href="ItemsBought.php">Purchases</a>
 					    <a class="dropdown-item" href="ImageTest.php">Upload</a>
 					    <div class="dropdown-divider"></div>
+					    <a class="dropdown-item" href="adminProfile.php">Admin</a>
 					    <a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 		      	</div>

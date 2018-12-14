@@ -12,6 +12,18 @@ require_once('authenticate.php');
 
 $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
+
+
+//credits
+ $query = "SELECT * from customer where userName='$tmp' and password='$p'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			$ti=$row['id'];
+			$tcustcre=$row['credits'];
+			}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+
 //delete from history
 if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 {
@@ -151,9 +163,6 @@ div#columns:hover figure:not(:hover) {
 		      <li class="nav-item"> 
 			      <a class="nav-link" href="searchTransaction.php">Search</a>
 			  </li>
-		       <form class="form-inline my-2 my-lg-0 ml-2" action="" method="post">
-					<button class="btn btn-outline-success" type="submit" name="trending" >Popular</button>
-			  </form>
 		       <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>
 		      		<a href="cart.php"><button class="btn btn-success mr-2"><i class="fa fa-shopping-cart mr-2"></i>Cart</button></a>
@@ -164,10 +173,13 @@ div#columns:hover figure:not(:hover) {
 		      		<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <?= $tmp ?>
 		      		</button>
 		      		<div class="dropdown-menu">
+		      			<a class="dropdown-item" href="#">Wallet: $<?= $tcustcre ?></a>
+					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item" href="cart.php">Cart</a>
 					    <a class="dropdown-item" href="ItemsBought.php">Purchases</a>
 					    <a class="dropdown-item" href="ImageTest.php">Upload</a>
 					    <div class="dropdown-divider"></div>
+					    <a class="dropdown-item" href="adminProfile.php">Admin</a>
 					    <a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 		      	</div>

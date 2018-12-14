@@ -12,6 +12,16 @@ $conn = new mysqli($hn, $un, $pw, $db);
 $_SESSION["user"]="";
 $_SESSION["pass"]="";
 
+//credits
+ $query = "SELECT * from customer where userName='$tmp' and password='$p'";
+	$result = $conn->query($query);
+	while ($row = $result->fetch_assoc()) {
+			//echo "Welcome ".$tmp." , id: ".$row['id']."<br>";
+			$ti=$row['id'];
+			$tcustcre=$row['credits'];
+			}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+
 if (isset($_POST['username']) && isset($_POST['password']))
 {
 	//$user="";

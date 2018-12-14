@@ -56,15 +56,14 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 		$v=$row['source'];
 		$w=$row['category'];
 		$x=$row['credits'];
+		$y=$row['contrib'];
 	}
 	
-	 $query ="INSERT INTO cart VALUES('$s','$t','$u','$v','$w','$x')";
+	 $query ="INSERT INTO cart VALUES('$s','$t','$u','$v','$w','$x','$y')";
 		$result = $conn->query($query);
 		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 		
-		$query = "DELETE FROM music WHERE id='$s'";
-	$result = $conn->query($query);
-	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
+		
 
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	}
@@ -146,7 +145,7 @@ $newheight = $height/2;
 	imagepng($image,$newname);
  
   // Insert record
- $query = "insert into music values(NULL,'$res','$size','$newname','$category', ROUND((RAND() * (20-1))+1),CURDATE())";
+ $query = "insert into music values(NULL,'$res','$size','$newname','$category', ROUND((RAND() * (20-1))+1),CURDATE(), '$tmp','1')";
  $result = $conn->query($query);
 if (!$result) die("Database access failed: ". $conn->error);
 
@@ -367,7 +366,8 @@ echo <<<_END
 	    <p class="card-text">resolution: $row[1]</p>
 	    <p class="card-text">size: $row[2]</p>
 	    <p class="card-text">category: $row[4]</p>
-			    <p class="card-text">credits: $row[5]</p>
+		<p class="card-text">cost: $row[5]</p>
+		<p class="card-text">source: $row[7]</p>
 		<form class = "mt-2 mb-2" action="ImageTest.php" method="post">
 			<input type="hidden" name="choose" value="yes">
 			<input type="hidden" name="id" value="$row[0]">

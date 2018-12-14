@@ -132,7 +132,7 @@ div#columns:hover figure:not(:hover) {
 <body>
 	<!--NAVBAR-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="startScreen">Aurora</a>
+  		<a class="navbar-brand" href="startScreen">Welcome to Aurora</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		 </button>
@@ -175,7 +175,7 @@ div#columns:hover figure:not(:hover) {
 		    </ul>
 		  </div>
 	</nav>
-	<h2 class="ml-2">Purchased Images</h2>
+	<h2 class="ml-4">Purchased Images</h2>
 	<div class="container-fluid ml-5">
 		<div class="row">
 			<form action="searchTransaction.php" method="post">

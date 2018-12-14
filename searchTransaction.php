@@ -10,9 +10,47 @@ $tmp= $_SESSION["user"];
 $p= $_SESSION["pass"];
 
 
-//search
-echo <<<_END
-_END;
+if (isset($_POST['delete']) && isset($_POST['orderNumber']))
+{
+	//echo"kjjh";
+	$id = get_post($conn, 'orderNumber');
+	$query = "DELETE FROM transaction WHERE orderNumber='$id'";
+	$result = $conn->query($query);
+	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
+	}
+	//download to device
+	if (isset($_POST['download']) && isset($_POST['orderNumber']))
+{
+	$id = get_post($conn, 'orderNumber');
+	echo $id;
+	$query = "select * from transaction WHERE orderNumber='$id'";
+	$result = $conn->query($query);
+	while($row = $result->fetch_assoc())
+{ 
+		$q= $row['orderNumber'];
+		$t=$row['customerID'];
+		$u=$row['imageID'];
+		$w[]=$row['source'];
+		$v=$row['transactionDate'];
+}
+if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+header('Content-Description: File Transfer');
+header('Content-Type: application/octet-stream');
+foreach($w as $neww)
+		{
+header('Content-Disposition: attachment; filename="'.$neww.'"');
+		}
+header('Content-Transfer-Encoding: binary');
+header('Expires: 0');
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Pragma: public');
+//header('Content-Length: ' . filesize($file_url)); //Absolute URL
+ob_clean();
+flush();
+//readfile($file_url); //Absolute URL
+exit();
+	}
+
 
 
 			
@@ -184,8 +222,9 @@ div#columns:hover figure:not(:hover) {
 		    </ul>
 		  </div>
 	</nav>
-		   <div class="container-fluid col-5 search ml-5" style="position: fixed; left: 0">
-		   	<form class="ml-5" method="post">
+		   <div class="container-fluid col-5 search ml-5" style="position: absolute; left: 0">
+		   	<h4 class="mt-2">Search Purchases</h4>
+		   	<form class="" method="post">
 			      <input type="text" name="enter" class="searchTerm" placeholder="What are you looking for?">
 			      <button type="submit" name="search" class="searchButton">
 			        <i class="fa fa-search"></i>
@@ -243,7 +282,7 @@ echo <<<_END
 	    <p class="card-text">Customer ID: $row[1]</p>
 	    <p class="card-text">Image ID: $row[2]</p>
 	    <p class="card-text">Transaction Date: $row[4]</p>
-	    <form action="itemsBought.php" method="post">
+	    <form action="searchTransaction.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="orderNumber" value="$row[0]">
 			<input type="hidden" name="customerID" value="$row[1]">
@@ -283,7 +322,7 @@ echo <<<_END
 	    <p class="card-text">Customer ID: $row[1]</p>
 	    <p class="card-text">Image ID: $row[2]</p>
 	    <p class="card-text">Transaction Date: $row[4]</p>
-	    <form action="itemsBought.php" method="post">
+	    <form action="searchTransaction.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="orderNumber" value="$row[0]">
 			<input type="hidden" name="customerID" value="$row[1]">

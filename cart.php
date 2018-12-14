@@ -170,7 +170,6 @@ div#columns:hover figure:not(:hover) {
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="startScreen">Aurora</a>
   		<h2 class="display-5"><a class="navbar-brand" href="startScreen.php">Welcome to Aurora</a></h2>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
@@ -182,7 +181,7 @@ div#columns:hover figure:not(:hover) {
 		        <a class="nav-link" href="startScreen.php">Home <span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="ImageTest.php">Upload</a>
+		        <a class="nav-link" href="ImageTest.php">Share</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
@@ -214,7 +213,7 @@ div#columns:hover figure:not(:hover) {
 		  </div>
 	</nav>
 	<div class="mr-5 mb-5" style="position: fixed; right: 0">
-		<form class="mt-5 mr-5"  action="cart.php" method="post">
+		<form class="mt-5 mr-5"  action="ItemsBought.php" method="post">
 			<input type="hidden" name="id" value="">
 			<input type="hidden" name="buy" value="yes">
 			<button class="btn btn-success btn-lg mt-" type="submit">Purchase</button>

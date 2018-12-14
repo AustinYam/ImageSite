@@ -185,7 +185,8 @@ div#columns:hover figure:not(:hover) {
 		  </div>
 	</nav>
 		   <div class="container-fluid col-5 search ml-5" style="position: fixed; left: 0">
-		   	<form class="ml-5" method="post">
+		   	<h4 class="mt-2">Search</h4>
+		   	<form class="" method="post">
 			      <input type="text" name="enter" class="searchTerm" placeholder="What are you looking for?">
 			      <button type="submit" name="search" class="searchButton">
 			        <i class="fa fa-search"></i>

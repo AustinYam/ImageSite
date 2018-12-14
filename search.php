@@ -201,6 +201,7 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 {
 	$t=array();
 	$q=array();
+	$y=array();
 	$value=array();
 	$val="";
 	$category = get_post($conn, 'enter');
@@ -224,6 +225,7 @@ if (isset($_POST['search']) && isset($_POST['enter']))
 		//$val=$value;
 		
 		$t[]=$row['category'];
+		$y[]=$row['contrib'];
 		//echo $q;
 		
 		//print_r ($t);
@@ -269,6 +271,7 @@ echo <<<_END
 	    <p class="card-text">size: $row[2]</p>
 	    <p class="card-text">category: $row[4]</p>
 		<p class="card-text">credits: $row[5]</p>
+		<p class="card-text">source: $row[7]</p>
 	    <form action="search.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
@@ -277,6 +280,7 @@ echo <<<_END
 			<input type="hidden" name="source" value="$row[3]">
 			<input type="hidden" name="category" value="$row[4]">
 			<input type="hidden" name="credits" value="$row[5]">
+			<input type="hidden" name="source" value="$row[7]">
 			<button class="btn btn-outline-success" type="submit">Delete</button>
 		</form>
 		<form class = "mt-2" action="ImageTest.php" method="post">
@@ -332,6 +336,7 @@ echo <<<_END
 	    <p class="card-text">size: $row[2]</p>
 	    <p class="card-text">category: $row[4]</p>
 		<p class="card-text">credits: $row[5]</p>
+				<p class="card-text">source: $row[7]</p>
 	    <form action="search.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
@@ -340,6 +345,67 @@ echo <<<_END
 			<input type="hidden" name="source" value="$row[3]">
 			<input type="hidden" name="category" value="$row[4]">
 			<input type="hidden" name="credits" value="$row[5]">
+			<input type="hidden" name="source" value="$row[7]">
+			<button class="btn btn-outline-success" type="submit">Delete</button>
+		</form>
+		<form class = "mt-2" action="ImageTest.php" method="post">
+			<input type="hidden" name="choose" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+		</form>
+	  </div>
+</div>
+</figure>
+_END;
+			}		
+	}
+	if(in_array($category, $y)!==false)
+	{
+
+	$query = "SELECT * FROM music WHERE contrib like '$category'";
+	$result = $conn->query($query);
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+while ($row = $result->fetch_assoc()) {
+		$q[]= $row['source'];
+		foreach($q as $value)
+		{
+			$value=strtolower(substr($value, 0, -7));
+			
+		}
+		$test[]=$value;
+	}	
+	$rows = $result->num_rows;
+	for ($j = 0 ; $j < $rows ; ++$j)
+		{
+			$result->data_seek($j);
+			$row = $result->fetch_array(MYSQLI_NUM);
+			$g[]=$row[3];
+			foreach($g as $value)
+		{
+			$value=substr($value, 0, -7);
+			
+		}
+echo <<<_END
+<figure>
+<div class="card mt-5 ml-3">
+	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
+	<div class="card-body">
+	    <h5 class="card-title">$value</h5>
+	    <p class="card-text">id: $row[0]</p>
+	    <p class="card-text">resolution: $row[1]</p>
+	    <p class="card-text">size: $row[2]</p>
+	    <p class="card-text">category: $row[4]</p>
+		<p class="card-text">credits: $row[5]</p>
+		<p class="card-text">credits: $row[7]</p>
+	    <form action="search.php" method="post">
+			<input type="hidden" name="delete" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<input type="hidden" name="resolution" value="$row[1]">
+			<input type="hidden" name="size" value="$row[2]">
+			<input type="hidden" name="source" value="$row[3]">
+			<input type="hidden" name="category" value="$row[4]">
+			<input type="hidden" name="credits" value="$row[5]">
+			<input type="hidden" name="source" value="$row[7]">
 			<button class="btn btn-outline-success" type="submit">Delete</button>
 		</form>
 		<form class = "mt-2" action="ImageTest.php" method="post">

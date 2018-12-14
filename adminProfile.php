@@ -1,5 +1,4 @@
 <?php
-/*
 require_once 'login.php';
 $conn = new mysqli($hn, $un, $pw, $db);
 if ($conn->connect_error) die($conn->connect_error);
@@ -22,10 +21,10 @@ search by image id<type="label" name="">
 <input type="submit" value="search" name="searchbyimg">
 </form>
 _END;
+
 if (isset($_POST['searchbycust']) && isset($_POST['entercust']))
 {
-	$custid = get_post($conn, 'entercust');
-	echo $custid;
+	$custid = $_POST['entercust'];
 	$query = "SELECT * FROM transaction WHERE customerID='$custid'";
 	$result = $conn->query($query);
 	
@@ -97,7 +96,6 @@ _END;
 			}		
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	}
-	*/
 	
 
 ?>

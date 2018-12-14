@@ -56,10 +56,9 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 		$v=$row['source'];
 		$w=$row['category'];
 		$x=$row['credits'];
-		$y=$row['contrib'];
 	}
 	
-	 $query ="INSERT INTO cart VALUES('$s','$t','$u','$v','$w','$x','$y')";
+	 $query ="INSERT INTO cart VALUES('$s','$t','$u','$v','$w','$x')";
 		$result = $conn->query($query);
 		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 		
@@ -146,7 +145,7 @@ $newheight = $height/2;
  
   // Insert record
 
- $query = "insert into music values(NULL,'$res','$size','$newname','$category', ROUND((RAND() * (20-1))+1),CURDATE(), '$tmp','1')";
+ $query = "insert into music values(NULL,'$res','$size','$newname','$category', ROUND((RAND() * (20-1))+1),CURDATE(), '$tmp')";
 
  $result = $conn->query($query);
 if (!$result) die("Database access failed: ". $conn->error);

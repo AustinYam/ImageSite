@@ -63,9 +63,9 @@ if (isset($_POST['delete']) && isset($_POST['id']))
 		$result = $conn->query($query);
 		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 		
-		$query = "DELETE FROM music WHERE id='$s'";
-	$result = $conn->query($query);
-	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
+	//	$query = "DELETE FROM music WHERE id='$s'";
+	//$result = $conn->query($query);
+	//if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
 		
 
 	}

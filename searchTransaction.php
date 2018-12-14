@@ -283,7 +283,7 @@ div#columns:hover figure:not(:hover) {
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
 echo <<<_END
-<figure>
+<figure class = "mt-5">
 <div class="card mt-5 ml-3">
 	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 	<div class="card-body">
@@ -299,7 +299,7 @@ echo <<<_END
 			<input type="hidden" name="imageID" value="$row[2]">
 			<input type="hidden" name="source" value="$row[3]">
 			<input type="hidden" name="transactionDate" value="$row[4]">
-			<button class="btn btn-outline-success" type="submit">Return</button>
+			<button class="btn btn-outline-danger btn-sm" type="submit">Return</button>
 		</form>
 	  </div>
 </div>
@@ -323,7 +323,7 @@ _END;
 			$result->data_seek($j);
 			$row = $result->fetch_array(MYSQLI_NUM);
 echo <<<_END
-<figure>
+<figure class = "mt-5">
 <div class="card mt-5 ml-3">
 	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 	<div class="card-body">
@@ -339,7 +339,7 @@ echo <<<_END
 			<input type="hidden" name="imageID" value="$row[2]">
 			<input type="hidden" name="source" value="$row[3]">
 			<input type="hidden" name="transactionDate" value="$row[4]">
-			<button class="btn btn-outline-success" type="submit">Return</button>
+			<button class="btn btn-outline-danger btn-sm" type="submit">Return</button>
 		</form>
 	  </div>
 </div>

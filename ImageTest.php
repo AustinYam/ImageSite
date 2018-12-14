@@ -327,7 +327,7 @@ div#columns:hover figure:not(:hover) {
 				</label>
 				<div id="file-upload-filename"></div><br>
 				Category<input class="ml-2" type="text" name="category">
-				<button class="btn btn-success" type='submit' name='image_upload'>Upload</button>
+				<button class="btn btn-success" type='submit' onclick="myUpload()" name='image_upload'>Upload</button>
 			</form>
 		</div>
 		<div id="columns">
@@ -376,7 +376,7 @@ echo <<<_END
 		<form class = "mt-2 mb-2" action="ImageTest.php" method="post">
 			<input type="hidden" name="choose" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
-			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+			<button class = "btn btn-outline-success" onclick = "myFunction()" type="submit">Add to Cart</button>
 		</form>
 		 <form class = "" action="ImageTest.php" method="post">
 			<input type="hidden" name="delete" value="yes">
@@ -417,6 +417,15 @@ function showFileName( event ) {
   
   // use fileName however fits your app best, i.e. add it into a div
   infoArea.textContent = 'File name: ' + fileName;
+}
+</script>
+<script>
+function myFunction() {
+  alert("Added to Cart!");
+}
+
+function myUpload() {
+  alert("Uploaded Image!");
 }
 </script>
 </footer>

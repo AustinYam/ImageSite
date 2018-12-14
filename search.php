@@ -24,6 +24,32 @@ $p= $_SESSION["pass"];
 			}
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 
+	if (isset($_POST['choose']) && isset($_POST['id']))
+{
+	$id = get_post($conn, 'id');
+	$query = "SELECT * FROM music WHERE id='$id'";
+	$result = $conn->query($query);
+	
+	while ($row = $result->fetch_assoc()) {
+		$s=$row['id'];	
+		$t=$row['resolution'];
+		$u=$row['size'];
+		$v=$row['source'];
+		$w=$row['category'];
+		$x=$row['credits'];
+	}
+	
+	 $query ="INSERT INTO cart VALUES('$s','$t','$u','$v','$w','$x')";
+		$result = $conn->query($query);
+		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
+		
+	//	$query = "DELETE FROM music WHERE id='$s'";
+	//$result = $conn->query($query);
+	//if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
+		
+
+	}
+
 //search
 echo <<<_END
 _END;
@@ -272,7 +298,7 @@ while ($row = $result->fetch_assoc()) {
 			
 		}
 echo <<<_END
-<figure>
+<figure class ="mt-5">
 <div class="card mt-5 ml-3">
 	<img class = "card-image-top" src= $row[3] alt="HTML5 Icon" style="width:128px;height:128px">
 	<div class="card-body">
@@ -283,7 +309,12 @@ echo <<<_END
 	    <p class="card-text">category: $row[4]</p>
 		<p class="card-text">credits: $row[5]</p>
 		<p class="card-text">source: $row[7]</p>
-	    <form action="search.php" method="post">
+		<form class = "mt-2 mb-2" action="search.php" method="post">
+			<input type="hidden" name="choose" value="yes">
+			<input type="hidden" name="id" value="$row[0]">
+			<button class = "btn btn-outline-success" onclick = "myFunction()" type="submit">Add to Cart</button>
+		</form>
+		<form action="search.php" method="post">
 			<input type="hidden" name="delete" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
 			<input type="hidden" name="resolution" value="$row[1]">
@@ -292,12 +323,7 @@ echo <<<_END
 			<input type="hidden" name="category" value="$row[4]">
 			<input type="hidden" name="credits" value="$row[5]">
 			<input type="hidden" name="source" value="$row[7]">
-			<button class="btn btn-outline-success" type="submit">Delete</button>
-		</form>
-		<form class = "mt-2" action="ImageTest.php" method="post">
-			<input type="hidden" name="choose" value="yes">
-			<input type="hidden" name="id" value="$row[0]">
-			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+			<button class="btn btn-outline-danger  btn-sm" type="submit">Delete</button>
 		</form>
 	  </div>
 </div>
@@ -362,7 +388,7 @@ echo <<<_END
 		<form class = "mt-2" action="ImageTest.php" method="post">
 			<input type="hidden" name="choose" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
-			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+			<button class = "btn btn-outline-success" onclick = "myFunction()" type="submit">Add to Cart</button>
 		</form>
 	  </div>
 </div>
@@ -422,7 +448,7 @@ echo <<<_END
 		<form class = "mt-2" action="ImageTest.php" method="post">
 			<input type="hidden" name="choose" value="yes">
 			<input type="hidden" name="id" value="$row[0]">
-			<button class = "btn btn-outline-success" type="submit">Add to Cart</button>
+			<button class = "btn btn-outline-success" onclick = "myFunction()" type="submit">Add to Cart</button>
 		</form>
 	  </div>
 </div>
@@ -455,6 +481,12 @@ $query = "SELECT * FROM music";
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	function myFunction() {
+  alert("Added to Cart!");
+}
+</script>
 </footer>
 </html>
 			

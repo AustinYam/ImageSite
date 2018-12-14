@@ -224,7 +224,7 @@ div#columns:hover figure:not(:hover) {
 					
 						echo "<form method='post'>";
                 			echo "<input type='hidden' name='enterimg' id='image' value = '".$row['imageID']."' />";
-                 			echo "<button class = 'btn btn-success' type='submit' name='searchbyimg' id='delete'><img src = '".$row['source']."' height = '100' width = '100'></button>";
+                 			echo "<button class = 'btn btn-outline-success' type='submit' name='searchbyimg' id='delete'><img src = '".$row['source']."' height = '100' width = '100'></button>";
             			echo "</form>  ";
 					echo "</div> ";
 

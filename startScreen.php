@@ -303,6 +303,7 @@ div#columns:hover figure:not(:hover) {
 					    <a class="dropdown-item" href="ItemsBought.php">Purchases</a>
 					    <a class="dropdown-item" href="ImageTest.php">Upload</a>
 					    <div class="dropdown-divider"></div>
+					    <a class="dropdown-item" href="adminProfile.php">Admin</a>
 					    <a class="dropdown-item" href="logout.php">Logout</a>
 					</div>
 		      	</div>

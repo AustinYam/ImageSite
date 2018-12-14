@@ -34,37 +34,36 @@ if (isset($_POST['delete']) && isset($_POST['orderNumber']))
 	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
 	}
 	//download to device
-	if (isset($_POST['download']) && isset($_POST['orderNumber']))
+if (isset($_POST['download']) && isset($_POST['orderNumber']))
 {
 	$id = get_post($conn, 'orderNumber');
-	echo $id;
 	$query = "select * from transaction WHERE orderNumber='$id'";
 	$result = $conn->query($query);
 	while($row = $result->fetch_assoc())
-{ 
-		$q= $row['orderNumber'];
-		$t=$row['customerID'];
-		$u=$row['imageID'];
-		$w[]=$row['source'];
-		$v=$row['transactionDate'];
-}
-if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
-header('Content-Description: File Transfer');
-header('Content-Type: application/octet-stream');
-foreach($w as $neww)
-		{
-header('Content-Disposition: attachment; filename="'.$neww.'"');
-		}
-header('Content-Transfer-Encoding: binary');
-header('Expires: 0');
-header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-header('Pragma: public');
-//header('Content-Length: ' . filesize($file_url)); //Absolute URL
-ob_clean();
-flush();
-//readfile($file_url); //Absolute URL
-exit();
+	{ 
+			$q= $row['orderNumber'];
+			$t=$row['customerID'];
+			$u=$row['imageID'];
+			$w[]=$row['source'];
+			$v=$row['transactionDate'];
 	}
+	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/octet-stream');
+	foreach($w as $neww)
+			{
+	header('Content-Disposition: attachment; filename="'.$neww.'"');
+			}
+	header('Content-Transfer-Encoding: binary');
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+	header('Pragma: public');
+	//header('Content-Length: ' . filesize($file_url)); //Absolute URL
+	ob_clean();
+	flush();
+	//readfile($file_url); //Absolute URL
+	exit();
+}
 
 
 ?>
@@ -161,7 +160,7 @@ div#columns:hover figure:not(:hover) {
 		        <a class="nav-link" href="ItemsBought.php">Purchases</a>
 		      </li>   
 		      <li class="nav-item"> 
-			      <a class="nav-link" href="searchTransaction.php">Search</a>
+			      <a class="nav-link" href="search.php">Search</a>
 			  </li>
 		       <li class="nav-item" style="position: absolute; right: 0">
 		      	<div>

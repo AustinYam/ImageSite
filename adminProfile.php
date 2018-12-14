@@ -220,11 +220,11 @@ div#columns:hover figure:not(:hover) {
 				$query = "select distinct source,imageID from transaction"; 
 				$result = mysqli_query($conn, $query);
 				while($row = mysqli_fetch_array($result)){
-					echo "<div id = 'img_div'>";
-						echo "<img src = '".$row['source']."' height = '100' width = '100'>";
+					echo "<div class = 'mr-2 mt-2' id = 'img_div'>";
+					
 						echo "<form method='post'>";
                 			echo "<input type='hidden' name='enterimg' id='image' value = '".$row['imageID']."' />";
-                 			echo "<button class = 'btn btn-success' type='submit' name='searchbyimg' id='delete'>Select</button>";
+                 			echo "<button class = 'btn btn-success' type='submit' name='searchbyimg' id='delete'><img src = '".$row['source']."' height = '100' width = '100'></button>";
             			echo "</form>  ";
 					echo "</div> ";
 

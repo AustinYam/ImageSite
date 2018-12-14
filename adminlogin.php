@@ -1,4 +1,5 @@
 	<?php
+	
 /*
 login page
 backend by Arselan (php libraries used from php website).
@@ -12,22 +13,12 @@ $conn = new mysqli($hn, $un, $pw, $db);
 $_SESSION["user"]="";
 $_SESSION["pass"]="";
 
-if (isset($_POST['username']) && isset($_POST['password']))
+if (isset($_POST['password']))
 {
-	//$user="";
-	//$pass="";
-	
-	$username = mysqli_real_escape_string($conn, $_POST['username']);
 	$password = mysqli_real_escape_string($conn, $_POST['password']);
 	 $passwordunhash=SHA1($password);
 	// echo $passwordunhash."</br>";
 	
-	$query = "SELECT userName from customer where userName='$username'";
-		$result1 = $conn->query($query);
-		while ($row = $result1->fetch_assoc()) {
-		//	echo $row['userName']."<br>";
-			$_SESSION["user"]=$row['userName'];
-			}
 			
 			
 			$query = "SELECT password from customer where password='$passwordunhash'";
@@ -40,10 +31,10 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			
 	
 	
-	if ($username==$_SESSION["user"] && $passwordunhash===$_SESSION["pass"])
+	if ($passwordunhash===$_SESSION["pass"])
 	{
-		session_start();
-        $_SESSION["authenticated"] = 'true';
+	//	session_start();
+      //  $_SESSION["authenticated"] = 'true';
 		header("location: startScreen.php");
 	}
 	else
@@ -127,17 +118,13 @@ div#columns:hover figure:not(:hover) {
 		<div class="container">
 			<h1>Login</h1>
 			<br>
-			<form action="loginPage.php" method="post">
-				<row>
-					<p>Username</p> <input class="validate" type="text" name="username">
-				</row>
+			<form action="adminlogin.php" method="post">
 				</row>
 					<p>Password</p> <input class="validate" type="password" name="password">
 				</row>
 				<button class="btn waves-effect waves-light" type="submit" value="">Login</button>
 			</form>
 			<p>Not a member? <a href="signupPage.php"> Sign Up</a></p>
-			<p>Admin? <a href="adminlogin.php"> Sign in as admin</a></p>
 		</div>
 	</body>
 	<footer>

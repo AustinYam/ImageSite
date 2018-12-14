@@ -297,7 +297,7 @@ _END;
 		//echo $category;
 		echo "</br>";
 		echo $val;
-	echo "yes";
+	//echo "yes";
 	$query = "SELECT * from music where LOWER(substr(source from 1 for char_length(source)-7)) = LOWER('$category')";
 	$result = $conn->query($query);
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";	

@@ -81,9 +81,6 @@ $query = "SELECT id from customer where userName='$tmp' and password='$p'";
 		$result = $conn->query($query);
 		if (!$result) echo "INSERT failed: $query<br>" . $conn->error . "<br><br>";
 		
-		$query = "DELETE FROM music WHERE id='$iid'";
-	$result = $conn->query($query);
-	if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
 
 	if (!$result) echo "SELECT failed: $query<br>" . $conn->error . "<br><br>";
 	}
